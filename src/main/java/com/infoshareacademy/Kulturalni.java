@@ -10,10 +10,14 @@ public class Kulturalni {
     public static void main( String[] args )
     {
         System.out.println( "Kulturalni" );
-
+        new Kulturalni().parseCommands(args);
     }
 
+    public void parseCommands(String[] args) {
 
+
+
+    }
 
 
 
