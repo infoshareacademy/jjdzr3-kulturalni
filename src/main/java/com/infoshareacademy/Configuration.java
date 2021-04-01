@@ -16,7 +16,6 @@ public class Configuration {
     private String direction;
     private String dateFormat;
 
-
     public void readConfiguration() {
         loadProperties();
         key = properties.getProperty("key");
@@ -38,13 +37,15 @@ public class Configuration {
         }
     }
 
+    public String getDirection() {
+        return direction;
+    }
 
+    public String getSortParameter() {
+        return key;
+    }
 
-
-
-
-
-
-
-
+    public String getDateFormat() {
+        return dateFormat;
+    }
 }
