@@ -12,7 +12,17 @@ public class Configuration {
     private Path path = Paths.get("src", "main","resources", "kulturalni.properties");
     private File file = new File(String.valueOf(path));
     private Properties properties = new Properties();
+    private String key;
+    private String direction;
+    private String dateFormat;
 
+
+    public void readConfiguration() {
+        loadProperties();
+        key = properties.getProperty("key");
+        direction = properties.getProperty("direction");
+        dateFormat = properties.getProperty("date_format");
+    }
 
     private void loadProperties() {
         FileInputStream in;
