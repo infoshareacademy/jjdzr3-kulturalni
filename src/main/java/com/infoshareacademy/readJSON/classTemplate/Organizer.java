@@ -1,4 +1,4 @@
-package com.infoshareacademy.ODCZYTJSON;
+package com.infoshareacademy.readJSON.classTemplate;
 
 import java.util.Objects;
 
