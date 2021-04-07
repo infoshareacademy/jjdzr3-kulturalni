@@ -1,1 +1,0 @@
-# jjdzr3-kulturalni
