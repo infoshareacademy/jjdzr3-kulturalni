@@ -1,6 +1,7 @@
 package com.infoshareacademy;
 
 
+<<<<<<< HEAD
 public class Kulturalni {
     EventsDB eventsDB;
     Configuration configuration;
@@ -23,9 +24,6 @@ public class Kulturalni {
         eventsDB.displayEvents("1");    // Tu jest tymczasowo do wywołania wyświetlenia wszystkich eventów, fla których display=1
 
     }
-
-
-
 
 
 }
