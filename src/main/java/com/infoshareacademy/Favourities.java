@@ -61,14 +61,6 @@ public class Favourities {
         }
     }
 
-/*    public void addFavourite () {
-        favouritiesDB.add(100);
-        favouritiesDB.add(200);
-        favouritiesDB.add(300);
-        favouritiesDB.add(400);
-        favouritiesDB.add(500);
-    }*/
-
     public void saveFavourities() {
         Gson gson = new Gson();
         String jsonString = gson.toJson(favouritiesDB);
