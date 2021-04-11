@@ -2,9 +2,14 @@ package com.infoshareacademy.readJSON;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
+import com.infoshareacademy.readJSON.classTemplate.Event;
+import com.infoshareacademy.readJSON.classTemplate.EventJson;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class ParseJsonFile {
@@ -12,6 +17,24 @@ public class ParseJsonFile {
 
     ////////////////////////////////PARSOWANIE PLIKU Z PODANEJ ŚCIEŻKI/////////////////////////
     ///ŚCIEŻKA JEST INNA U KAŻDEGO - JESZCZE NIE ROZKMINIŁEM UNIWERSALNEGO ROZWIĄZANIA
+
+    public void readEvent() {
+        Gson gson = new Gson();
+        Path path = Paths.get("src","main","resources","data.json");
+
+        try {
+            FileReader reader = new FileReader(String.valueOf(path));
+            EventJson[] eventJson = gson.fromJson(reader, EventJson[].class);
+
+            for (int i = 0; i < eventJson.length; i++) {
+                Event event = new Event(eventJson[i]);
+                //eventsDB.add(event);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Błąd odczytu pliku *.json.");
+        }
+    }
 
 
     public void displayAllEvents() {
@@ -23,10 +46,10 @@ public class ParseJsonFile {
             JsonReader reader = new JsonReader(file);
 
             //odczytanie stringa z pliku json i umieszczenie każdego z obiektów w macierzy
-            jsonObjectTemplate[] data1 = gson.fromJson(reader, jsonObjectTemplate[].class);
+            EventJson[] data1 = gson.fromJson(reader, EventJson[].class);
 
             //przekształcenie macierzy w Kolekcję List
-            List<jsonObjectTemplate> data2 = Arrays.asList(data1);
+            List<EventJson> data2 = Arrays.asList(data1);
 
             for (int i = 0; i < data2.size(); i++) {
                 int eventNr = i + 1;

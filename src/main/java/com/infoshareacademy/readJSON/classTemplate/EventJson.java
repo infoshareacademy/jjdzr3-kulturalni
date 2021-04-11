@@ -1,9 +1,8 @@
-package com.infoshareacademy.readJSON;
-import com.infoshareacademy.readJSON.classTemplate.*;
+package com.infoshareacademy.readJSON.classTemplate;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class jsonObjectTemplate {
+public class EventJson {
 
     ////////////////////////////////VARIABLES/////////////////////////
 
@@ -26,9 +25,9 @@ public class jsonObjectTemplate {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof jsonObjectTemplate)) return false;
-        jsonObjectTemplate jsonObjectTemplate = (jsonObjectTemplate) o;
-        return Objects.equals(place, jsonObjectTemplate.place) && Objects.equals(endDate, jsonObjectTemplate.endDate) && Objects.equals(name, jsonObjectTemplate.name) && Objects.equals(urls, jsonObjectTemplate.urls) && Arrays.equals(attachments, jsonObjectTemplate.attachments) && Objects.equals(id, jsonObjectTemplate.id) && Objects.equals(descLong, jsonObjectTemplate.descLong) && Objects.equals(categoryId, jsonObjectTemplate.categoryId) && Objects.equals(startDate, jsonObjectTemplate.startDate) && Objects.equals(organizer, jsonObjectTemplate.organizer) && Objects.equals(active, jsonObjectTemplate.active) && Objects.equals(descShort, jsonObjectTemplate.descShort) && Objects.equals(tickets, jsonObjectTemplate.tickets);
+        if (!(o instanceof EventJson)) return false;
+        EventJson EventJson = (EventJson) o;
+        return Objects.equals(place, EventJson.place) && Objects.equals(endDate, EventJson.endDate) && Objects.equals(name, EventJson.name) && Objects.equals(urls, EventJson.urls) && Arrays.equals(attachments, EventJson.attachments) && Objects.equals(id, EventJson.id) && Objects.equals(descLong, EventJson.descLong) && Objects.equals(categoryId, EventJson.categoryId) && Objects.equals(startDate, EventJson.startDate) && Objects.equals(organizer, EventJson.organizer) && Objects.equals(active, EventJson.active) && Objects.equals(descShort, EventJson.descShort) && Objects.equals(tickets, EventJson.tickets);
     }
 
     @Override
