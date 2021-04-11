@@ -14,7 +14,7 @@ public class EventsDB {
     private Path path = Paths.get("src", "main","resources", "json.json");
 
 
-    public void readEvent() {
+    /*public void readEvent() {
         Gson gson = new Gson();
 
         try {
@@ -30,7 +30,7 @@ public class EventsDB {
             System.out.println("Błąd odczytu pliku *.json.");
         }
     }
-
+*/
 
 
 

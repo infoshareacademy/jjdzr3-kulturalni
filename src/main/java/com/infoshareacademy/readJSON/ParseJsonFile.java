@@ -2,7 +2,6 @@ package com.infoshareacademy.readJSON;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
-import com.infoshareacademy.readJSON.classTemplate.Event;
 import com.infoshareacademy.readJSON.classTemplate.EventJson;
 
 import java.io.FileNotFoundException;
