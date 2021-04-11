@@ -1,16 +1,12 @@
-package com.infoshareacademy.menuService;
+package com.infoshareacademy.menu;
 
-import com.infoshareacademy.eventsEntities.Events;
+
+import com.infoshareacademy.events.Events;
+import com.infoshareacademy.menu.MainMenu;
 
 import java.util.Scanner;
 
-public class SelectEventMenu {
-    private Scanner scanner;
-
-    public SelectEventMenu(Scanner scanner) {
-        this.scanner = scanner;
-    }
-
+public class SelectEventMenu extends MainMenu {
 
     public void printSelectEventMenu() {
         System.out.println("=========================================");
@@ -25,17 +21,16 @@ public class SelectEventMenu {
     }
 
     public void start(Events events) {
-        if (this.scanner != null) {
+            Scanner selectScanner = new Scanner(System.in);
             int key;
-            String line;
             do {
                 printSelectEventMenu();
-                line = this.scanner.nextLine();
-                key = Integer.parseInt(line);
+                key = selectScanner.nextInt();
                 switch (key) {
                     case 1:
                         System.out.println("Wszystkie wydzrzenia:");
                         events.displayAllEvents();
+                        System.out.print("\f");
                         break;
                     case 2:
                         System.out.println("Pokazać wydarzenie numer:");
@@ -44,15 +39,12 @@ public class SelectEventMenu {
                         break;
                     case 3:
                         System.out.println("Powrót do menu głównego");
-                        MainMenu mainMenu = new MainMenu(scanner);
-                        mainMenu.printMenu();
-                        mainMenu.start(events);
+                        printMenu();
                         break;
                     default:
                         System.out.println("Wybierz poprawną opcję!");
                 }
 
-            } while ( key!=3 );
+            } while (key != 3);
         }
     }
-}

@@ -1,15 +1,10 @@
-package com.infoshareacademy.menuService;
+package com.infoshareacademy.menu;
 
-import com.infoshareacademy.eventsEntities.Events;
+import com.infoshareacademy.events.Events;
 
 import java.util.Scanner;
 
 public class MainMenu {
-    private final Scanner scanner;
-
-    public MainMenu(Scanner scanner) {
-        this.scanner = scanner;
-    }
 
     public void printMenu() {
         System.out.println("============================================================");
@@ -17,33 +12,32 @@ public class MainMenu {
         System.out.println("============================================================");
         System.out.println("|Opcja:                                                    |");
         System.out.println("|        1. Pokaż wydarzenia                               |");
-        System.out.println("|        2. Option 2                                       |");
-        System.out.println("|        3. Option 3                                       |");
+        System.out.println("|        2. Sortuj wydarzenia                              |");
+        System.out.println("|        3. Ulubione wydarzenia                            |");
         System.out.println("|        4. Option 4                                       |");
-        System.out.println("|        5. Wyjście                                          |");
+        System.out.println("|        5. Wyjście                                        |");
         System.out.println("============================================================");
         System.out.println("Wybierz odpowiedną opcję:");
     }
 
     public void start(Events events) {
         try {
-        if (this.scanner != null) {
+            Scanner scanner = new Scanner(System.in);
             int key;
-            String line;
             printMenu();
             do {
-                line = this.scanner.nextLine();
-                key = Integer.parseInt(line);
+                key = scanner.nextInt();
                 switch (key) {
                     case 1:
-                        SelectEventMenu selectEventMenu = new SelectEventMenu(scanner);
+                        SelectEventMenu selectEventMenu = new SelectEventMenu();
                         selectEventMenu.start(events);
                         break;
                     case 2:
-                        System.out.println("Opcja 2");
+                        SortMenu sortMenu = new SortMenu();
+                        sortMenu.start(events);
+                        System.out.println("Menu sortowania");
                         break;
                     case 3:
-                        System.out.println("Opcja 3");
                         break;
                     case 4:
                         System.out.println("Opcja 4");
@@ -55,8 +49,8 @@ public class MainMenu {
                         System.out.println("Wybierz poprawną opcję!");
                 }
             } while (key != 5);
-        }
     } catch (Exception e){
+            e.printStackTrace();
             System.out.println("Wpisz poprawny symbol!");
         }
     }
