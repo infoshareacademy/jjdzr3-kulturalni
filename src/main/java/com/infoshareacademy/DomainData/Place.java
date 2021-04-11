@@ -1,4 +1,4 @@
-package com.infoshareacademy.readJSON.classTemplate;
+package com.infoshareacademy.DomainData;
 
 import java.util.Objects;
 

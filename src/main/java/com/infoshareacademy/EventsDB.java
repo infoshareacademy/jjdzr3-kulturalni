@@ -1,7 +1,7 @@
 package com.infoshareacademy;
 
 import com.google.gson.Gson;
-import com.infoshareacademy.readJSON.classTemplate.EventJson;
+import com.infoshareacademy.DomainData.EventJson;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,19 +11,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EventsDB {
+    private List<Event> eventsDB = new ArrayList<>();
+    private Path path = Paths.get("src", "main", "resources", "json.json");
 
 
     public void readEvent() {
-        EventsDB eventsDB = new EventsDB();
         Gson gson = new Gson();
-        Path path = Paths.get("src","main","resources","data.json");
-      try {
+
+        try {
             FileReader reader = new FileReader(String.valueOf(path));
             EventJson[] eventJson = gson.fromJson(reader, EventJson[].class);
 
             for (int i = 0; i < eventJson.length; i++) {
-               Event event = new Event(eventJson[i]);
-
+                Event event = new Event(eventJson[i]);
+                eventsDB.add(event);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -31,6 +32,7 @@ public class EventsDB {
         }
     }
 
-    public void displayEvents(String s) {
-        //temp
-    }}
+    public void displayEvents(String s){
+        /*in progress*/
+    }
+}

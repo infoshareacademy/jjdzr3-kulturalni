@@ -1,6 +1,6 @@
 package com.infoshareacademy;
 
-import com.infoshareacademy.readJSON.classTemplate.EventJson;
+import com.infoshareacademy.DomainData.EventJson;
 
 import java.util.Objects;
 
@@ -10,6 +10,8 @@ public class Event implements Comparable{
     private Integer display;
 
     public Event(EventJson eventJson) {
+        sortParameter = "ID";
+        display = 1;
     }
 
 
