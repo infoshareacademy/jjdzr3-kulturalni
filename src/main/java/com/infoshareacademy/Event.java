@@ -10,16 +10,15 @@ public class Event implements Comparable{
     private Integer display;
 
     public Event(EventJson eventJson) {
+        this.eventJson = eventJson;
         sortParameter = "ID";
-        display = 1;
+        this.display = 1;
     }
-
 
     @Override
     public int compareTo(Object o) {
         return 0;
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
