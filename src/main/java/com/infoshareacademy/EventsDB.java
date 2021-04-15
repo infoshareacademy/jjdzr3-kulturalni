@@ -99,6 +99,7 @@ public class EventsDB {
             }
         }
         System.out.println(szerokoscTabeli);
+        System.out.println("Ilość wydarzeń: " + eventsDB.size());
     }
 
     public void setAllEventsToDisplay() {
