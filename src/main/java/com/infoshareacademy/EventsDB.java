@@ -66,7 +66,6 @@ public class EventsDB {
         System.out.println(szerokoscTabeli);
 
         //UZUPEŁNIANIE TABELI WYDARZENIAMI
-
         for (Event event : eventsDB) {
 
              if (event.getDisplay() == 1) {
@@ -83,14 +82,10 @@ public class EventsDB {
                 s   oznacza format formatowanego elementu
                 */
 
-                tabelaWydarzenia.append(String.format(odstepId, event.getEventJson().getId()));
-                tabelaWydarzenia.append(separator);
-                tabelaWydarzenia.append(String.format(odstepNazwa, event.getEventJson().getName()));
-                tabelaWydarzenia.append(separator);
-                tabelaWydarzenia.append(String.format(odstepTermin, event.getEventJson().getStartDate()));
-                tabelaWydarzenia.append(separator);
+                tabelaWydarzenia.append(String.format(odstepId, event.getEventJson().getId())+separator);
+                tabelaWydarzenia.append(String.format(odstepNazwa, event.getEventJson().getName())+separator);
+                tabelaWydarzenia.append(String.format(odstepTermin, event.getEventJson().getStartDate())+separator);
                 tabelaWydarzenia.append(String.format(odstepMiejsce, event.getEventJson().getPlace().getName()));
-
                 System.out.println(tabelaWydarzenia);
             }
         }
@@ -98,15 +93,17 @@ public class EventsDB {
 
     public void setAllEventsToDisplay() {
         for (Event event : eventsDB) {
-
             event.setDisplay(1);
         }
     }
 
     public void setNoneEventsToDisplay() {
         for (Event event : eventsDB) {
-
             event.setDisplay(0);
         }
+    }
+
+    public void displayHeaderAll(String type){
+
     }
 }
