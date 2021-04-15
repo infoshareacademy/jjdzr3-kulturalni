@@ -54,7 +54,7 @@ public class EventsDB {
         naglowek.append("| " + String.format(odstepId, "ID") + naglowekSeparator);
 
         //--zmienia format wyświetlania daty (skraca) i zwiększa pole nazwy
-        if (type.equals("1")) {
+        if (type.equals("format1")) {
             odstepNazwa = "%-50.50s";
             odstepTermin = "%-10.10s";
             naglowek.append(String.format(odstepNazwa, "NAZWA WYDARZENIA") + naglowekSeparator);
@@ -63,12 +63,13 @@ public class EventsDB {
             naglowek.append(String.format(odstepNazwa, "NAZWA WYDARZENIA") + naglowekSeparator);
             naglowek.append(String.format(odstepTermin, "TERMIN") + naglowekSeparator);
         }
-        naglowek.append(String.format(odstepMiejsce, "MIEJSCE")+ separator);
+        naglowek.append(String.format(odstepMiejsce, "MIEJSCE") + separator);
 
         //SZABLON TABELI
         System.out.println(szerokoscTabeli);
         //WYŚWIETLA NAZWĘ TABELI NA ŚRODKU
-        System.out.println(String.format("|" + "%-" + (szerokoscTabeli.length() - 2) + "s", String.format("%" + (nazwaTabeli.length() + (szerokoscTabeli.length() - nazwaTabeli.length()) / 2) + "s", nazwaTabeli))+"|");
+        System.out.println(String.format("|" + "%-" + (szerokoscTabeli.length() - 2) + "s", String.format("%" +
+                (nazwaTabeli.length() + (szerokoscTabeli.length() - nazwaTabeli.length()) / 2) + "s", nazwaTabeli)) + "|");
         System.out.println(szerokoscTabeli);
         System.out.println(naglowek);
         System.out.println(szerokoscTabeli);
