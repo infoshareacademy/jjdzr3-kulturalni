@@ -38,13 +38,10 @@ public class EventsDB {
     }
 
     public void displayEvents(String type) {
-
-
         StringBuilder naglowek = new StringBuilder();
 
-
-        String szerokoscTabeli = "----------------------------------------------------------------------------------------------------";
-                ///100 kresek
+        String szerokoscTabeli = "---------------------------------------------------------------------------------------------------------";
+        ///ustawiona szerokość tabeli to 105 znaków
         String nazwaTabeli = "WYDARZENIA";
         String naglowekSeparator = "   ";
         String separator = " | ";
@@ -53,14 +50,25 @@ public class EventsDB {
         String odstepTermin = "%-25.25s";
         String odstepMiejsce = "%-27.27s";
 
-        naglowek.append(String.format(odstepId,"ID")+naglowekSeparator);
-        naglowek.append(String.format(odstepNazwa,"NAZWA WYDARZENIA")+naglowekSeparator);
-        naglowek.append(String.format(odstepTermin,"TERMIN")+naglowekSeparator);
-        naglowek.append(String.format(odstepMiejsce,"MIEJSCE"));
+//Buduje stringa składającego się na nagłówek tabeli
+        naglowek.append("| " + String.format(odstepId, "ID") + naglowekSeparator);
+
+        //--zmienia format wyświetlania daty (skraca) i zwiększa pole nazwy
+        if (type.equals("1")) {
+            odstepNazwa = "%-50.50s";
+            odstepTermin = "%-10.10s";
+            naglowek.append(String.format(odstepNazwa, "NAZWA WYDARZENIA") + naglowekSeparator);
+            naglowek.append(String.format(odstepTermin, "TERMIN") + naglowekSeparator);
+        } else {
+            naglowek.append(String.format(odstepNazwa, "NAZWA WYDARZENIA") + naglowekSeparator);
+            naglowek.append(String.format(odstepTermin, "TERMIN") + naglowekSeparator);
+        }
+        naglowek.append(String.format(odstepMiejsce, "MIEJSCE")+ separator);
 
         //SZABLON TABELI
         System.out.println(szerokoscTabeli);
-        System.out.println(nazwaTabeli);
+        //WYŚWIETLA NAZWĘ TABELI NA ŚRODKU
+        System.out.println(String.format("|" + "%-" + (szerokoscTabeli.length() - 2) + "s", String.format("%" + (nazwaTabeli.length() + (szerokoscTabeli.length() - nazwaTabeli.length()) / 2) + "s", nazwaTabeli))+"|");
         System.out.println(szerokoscTabeli);
         System.out.println(naglowek);
         System.out.println(szerokoscTabeli);
@@ -68,7 +76,7 @@ public class EventsDB {
         //UZUPEŁNIANIE TABELI WYDARZENIAMI
         for (Event event : eventsDB) {
 
-             if (event.getDisplay() == 1) {
+            if (event.getDisplay() == 1) {
 
                 StringBuilder tabelaWydarzenia = new StringBuilder();
 
@@ -82,13 +90,14 @@ public class EventsDB {
                 s   oznacza format formatowanego elementu
                 */
 
-                tabelaWydarzenia.append(String.format(odstepId, event.getEventJson().getId())+separator);
-                tabelaWydarzenia.append(String.format(odstepNazwa, event.getEventJson().getName())+separator);
-                tabelaWydarzenia.append(String.format(odstepTermin, event.getEventJson().getStartDate())+separator);
-                tabelaWydarzenia.append(String.format(odstepMiejsce, event.getEventJson().getPlace().getName()));
+                tabelaWydarzenia.append("| " + String.format(odstepId, event.getEventJson().getId()) + separator);
+                tabelaWydarzenia.append(String.format(odstepNazwa, event.getEventJson().getName()) + separator);
+                tabelaWydarzenia.append(String.format(odstepTermin, event.getEventJson().getStartDate()) + separator);
+                tabelaWydarzenia.append(String.format(odstepMiejsce, event.getEventJson().getPlace().getName()) + separator);
                 System.out.println(tabelaWydarzenia);
             }
         }
+        System.out.println(szerokoscTabeli);
     }
 
     public void setAllEventsToDisplay() {
@@ -101,9 +110,5 @@ public class EventsDB {
         for (Event event : eventsDB) {
             event.setDisplay(0);
         }
-    }
-
-    public void displayHeaderAll(String type){
-
     }
 }
