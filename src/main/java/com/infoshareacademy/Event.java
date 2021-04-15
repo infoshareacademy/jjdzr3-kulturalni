@@ -4,7 +4,7 @@ import com.infoshareacademy.DomainData.EventJson;
 
 import java.util.Objects;
 
-public class Event implements Comparable{
+public class Event implements Comparable<Event>{
     private EventJson eventJson;
     private String sortParameter;
     private Integer display;
@@ -16,8 +16,8 @@ public class Event implements Comparable{
     }
 
     @Override
-    public int compareTo(Object o) {
-        return 0;
+    public int compareTo(Event o) {
+        return this.getSortParameter().compareTo(o.getSortParameter());
     }
     @Override
     public boolean equals(Object o) {
