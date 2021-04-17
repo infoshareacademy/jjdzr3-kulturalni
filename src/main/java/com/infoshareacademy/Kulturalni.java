@@ -21,6 +21,18 @@ public class Kulturalni {
         favourities.readFavourities();
 
         eventsDB.displayEvents("1");    // Tu jest tymczasowo do wywołania wyświetlenia wszystkich eventów, fla których display=1
+
+
+
+
+
     }
+
+
+
+
+
+
+
 
 }
