@@ -39,7 +39,25 @@ public class Kulturalni {
 
     }
 
-
+    public static void displayHelp() {
+        System.out.println("Kulturalni help.");
+        System.out.println();
+        System.out.println("Commands description:");
+        System.out.println("kulturalni -show -id -<event id>                        -> displays one event denoted by id. Example: kulturalni -show 12345");
+        System.out.println("kulturalni -show -all                                   -> displays all events");
+        System.out.println("kulturalni -fav -all                                    -> displays all favourite events");
+        System.out.println("kulturalni -fav -add -<event id>                        -> adds event to favourities");
+        System.out.println("kulturalni -fav -delete -<event id>                     -> removes event from favourities");
+        System.out.println("kulturalni -sort -id                                    -> sorts events by id");
+        System.out.println("kulturalni -sort -date                                  -> sorts events by date");
+        System.out.println("kulturalni -sort -name                                  -> sorts events by name");
+        System.out.println("kulturalni -search -org -<\"organizer name\">           -> searches organiser");
+        System.out.println("kulturalni -search -date -<start date> -<end date>      -> searches date");
+        System.out.println("kulturalni -search -name -<event name>                  -> searches name");
+        System.out.println("kulturalni -filter -name -<\"organizer name\">          -> searches name");
+        System.out.println("kulturalni -filter -date -<start date> -<end date>      -> searches date");
+        System.out.println();
+    }
 
 
 
