@@ -131,7 +131,7 @@ public class EventsDB {
         }
 
         for (int i = 0; i < eventsDB.size(); i++) {
-            if (eventsDB.get(i).getEventJson().getOrganizer().getDesignation().toUpperCase().equals(filterString)) {
+            if (eventsDB.get(i).getEventJson().getOrganizer().getDesignation().equals(filterString)) {
                 eventsDB.get(i).setDisplay(1);
             }
         }
