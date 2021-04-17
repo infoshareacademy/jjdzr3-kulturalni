@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -202,11 +203,85 @@ public class EventsDB {
     }
 
 
+/*    public void sortByID(String direction, String key) {
+        sortByConfiguration(direction, key);
+        setSortParameterID();
+        Collections.sort(eventsDB);
+    }
+
+    public void sortByOrganizer(String direction, String key) {
+        sortByConfiguration(direction, key);
+        setSortParameterName();
+        Collections.sort(eventsDB);
+    }
+
+    public void sortByDate(String direction, String key) {
+        sortByConfiguration(direction, key);
+        setSortParameterDate();
+        Collections.sort(eventsDB);
+    }*/
 
 
 
+    public void sortByConfiguration (String direction, String key) {
+        if (key.equals("ID")) {
+            setSortParameterID();
+            if (direction.equals("ASC")) {
+                Collections.sort(eventsDB);
+            } else  if (direction.equals("DSC")) {
+                Collections.sort(eventsDB, Collections.reverseOrder());
+            } else {
+                Collections.sort(eventsDB);
+            }
+        }else if (key.equals("NAME")) {
+            setSortParameterName();
+            if (direction.equals("ASC")) {
+                Collections.sort(eventsDB);
+            } else  if (direction.equals("DSC")) {
+                Collections.sort(eventsDB, Collections.reverseOrder());
+            } else {
+                Collections.sort(eventsDB);
+            }
+        }else if (key.equals("DATE")) {
+            setSortParameterDate();
+            if (direction.equals("ASC")) {
+                Collections.sort(eventsDB);
+            } else  if (direction.equals("DSC")) {
+                Collections.sort(eventsDB, Collections.reverseOrder());
+            } else {
+                Collections.sort(eventsDB);
+            }
+        } else {
+            if (direction.equals("ASC")) {
+                Collections.sort(eventsDB);
+            } else  if (direction.equals("DSC")) {
+                Collections.sort(eventsDB, Collections.reverseOrder());
+            } else {
+                Collections.sort(eventsDB);
+            }
+        }
+    }
 
+    public void setSortParameterID() {
+        for (Event event: eventsDB) {
+            Integer id = event.getEventJson().getId();
+            event.setSortParameter(id.toString());
+        }
+    }
 
+    public void setSortParameterName() {
+        for (Event event: eventsDB) {
+            String name = event.getEventJson().getName();
+            event.setSortParameter(name);
+        }
+    }
+
+    public void setSortParameterDate() {
+        for (Event event: eventsDB) {
+            String[] date = event.getEventJson().getStartDate().split("T");
+            event.setSortParameter(date[0]);
+        }
+    }
 
 
 
