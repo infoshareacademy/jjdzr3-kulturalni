@@ -57,7 +57,7 @@ public class EventsDB {
         naglowek.append("| " + String.format(odstepId, "ID") + naglowekSeparator);
 
         //--zmienia format wyświetlania daty (skraca) i zwiększa pole nazwy
-        if (type.equals("format1")) {
+        if (type.equals("1")) {
             odstepNazwa = "%-50.50s";
             odstepTermin = "%-10.10s";
             naglowek.append(String.format(odstepNazwa, "NAZWA WYDARZENIA") + naglowekSeparator);
@@ -187,7 +187,19 @@ public class EventsDB {
     }
 
 
+    public void setAllFavouritiesToDisplay(Favourities favourities) {
+        Integer id;
 
+        for (int i = 0; i < eventsDB.size(); i++) {
+            id = eventsDB.get(i).getEventJson().getId();
+
+            if (favourities.isFavourite(id)) {
+                eventsDB.get(i).setDisplay(1);
+            } else {
+                eventsDB.get(i).setDisplay(0);
+            }
+        }
+    }
 
 
 

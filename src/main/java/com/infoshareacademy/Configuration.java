@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 import java.util.Properties;
 
 public class Configuration {
-    private Path path = Paths.get("jjdzr3-kulturalni", "src", "main", "resources", "kulturalni.properties");
+    private Path path = Paths.get("src", "main", "resources", "kulturalni.properties");
     private File file = new File(String.valueOf(path));
     private Properties properties = new Properties();
     private String key;
