@@ -32,7 +32,7 @@ public class EventJson {
 
     @Override
     public int hashCode() {
-        return Objects.hash(place, endDate, name, urls, attachments, id, descLong, categoryId, startDate, organizer, active, descShort, tickets);
+        return Objects.hash(place, endDate, name, urls, Arrays.hashCode(attachments), id, descLong, categoryId, startDate, organizer, active, descShort, tickets);
     }
 
     ////////////////////////////////SETTERS & GETTERS/////////////////////////
