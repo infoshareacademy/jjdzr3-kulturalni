@@ -58,7 +58,7 @@ public class EventsDB {
         naglowek.append("| " + String.format(odstepId, "ID") + naglowekSeparator);
 
         //--zmienia format wyświetlania daty (skraca) i zwiększa pole nazwy
-        if (type.equals("1")) {
+        if (type.equals("short")) {
             odstepNazwa = "%-50.50s";
             odstepTermin = "%-10.10s";
             naglowek.append(String.format(odstepNazwa, "NAZWA WYDARZENIA") + naglowekSeparator);
