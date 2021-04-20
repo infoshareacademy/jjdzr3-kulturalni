@@ -314,4 +314,8 @@ public class EventsDB {
             System.out.println("Nie można zapisać pliku.");
         }
     }
+
+    public boolean isEvent(Integer id) {
+        return eventsDB.contains(id);
+    }
 }
