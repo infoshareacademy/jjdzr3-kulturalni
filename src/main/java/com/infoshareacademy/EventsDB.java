@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -15,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 
 public class EventsDB {
@@ -297,8 +299,17 @@ public class EventsDB {
     }
 
     public void editEvent() {
+
     }
 
     public void saveEvent() {
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(eventsDB);
+
+        try {
+            Files.writeString(path, jsonString);
+        } catch (IOException e) {
+            System.out.println("Nie można zapisać pliku.");
+        }
     }
 }
