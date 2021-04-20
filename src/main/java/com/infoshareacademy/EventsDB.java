@@ -13,10 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class EventsDB {
@@ -303,8 +300,21 @@ public class EventsDB {
         }
     }
 
-    public void editEvent() {
-
+    public void editEvent(Integer id, String key) {
+        Scanner scanner = new Scanner(System.in);
+        String newName = scanner.nextLine();
+        String newStartDate = scanner.nextLine();
+        String newOrganizer = scanner.nextLine();
+        String newPlace = scanner.nextLine();
+        if (key.equals("NAME")) {
+            eventsDB.get(id).getEventJson().setName(newName);
+        } else if (key.equals("DATE")) {
+            eventsDB.get(id).getEventJson().setStartDate(newStartDate);
+        } else if (key.equals("ORGANIZER")) {
+            eventsDB.get(id).getEventJson().getOrganizer().setDesignation(newOrganizer);
+        } else if (key.equals("PLACE")) {
+            eventsDB.get(id).getEventJson().getPlace().setName(newName);
+        }
     }
 
     public void saveEvent() {
