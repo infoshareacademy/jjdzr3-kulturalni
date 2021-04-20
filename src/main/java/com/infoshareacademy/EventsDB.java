@@ -287,6 +287,8 @@ public class EventsDB {
 
     public void addEvent(Integer id, String name, String startDate, Organizer organizer, String place) {
         eventsDB.add(createEvent(id, name, startDate, organizer, place));
+        saveEvent();
+        readEvent();
     }
 
     public Event createEvent(Integer id, String name, String startDate, Organizer organizer, String place) {
