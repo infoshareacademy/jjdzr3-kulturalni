@@ -297,7 +297,10 @@ public class EventsDB {
     }
 
     public void removeEvent(Integer id) {
-        eventsDB.remove(id);
+        while (isEvent(id)) {
+            int position = eventsDB.indexOf(id);
+            eventsDB.remove(position);
+        }
     }
 
     public void editEvent() {
