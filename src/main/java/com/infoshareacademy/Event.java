@@ -1,6 +1,8 @@
 package com.infoshareacademy;
 
 import com.infoshareacademy.DomainData.EventJson;
+import com.infoshareacademy.DomainData.Organizer;
+import com.infoshareacademy.DomainData.Place;
 
 import java.util.Objects;
 
@@ -11,6 +13,18 @@ public class Event implements Comparable<Event>{
 
     public Event(EventJson eventJson) {
         this.eventJson = eventJson;
+        sortParameter = "ID";
+        this.display = 1;
+    }
+    public Event(Integer id, String name, String startDate, Organizer organizer, String place) {
+        EventJson eventJsonNew = new EventJson();
+        eventJson.getPlace().setName(place);
+        eventJson.setId(id);
+        eventJson.setName(name);
+        eventJson.setStartDate(startDate);
+        eventJson.setOrganizer(organizer);
+        //pozostałe parametry, teraz jest tylko dla place
+        this.eventJson = eventJsonNew;
         sortParameter = "ID";
         this.display = 1;
     }

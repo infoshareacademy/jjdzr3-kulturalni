@@ -2,6 +2,8 @@ package com.infoshareacademy;
 
 import com.google.gson.Gson;
 import com.infoshareacademy.DomainData.EventJson;
+import com.infoshareacademy.DomainData.Organizer;
+import com.infoshareacademy.DomainData.Place;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.FileReader;
@@ -283,8 +285,9 @@ public class EventsDB {
         }
     }
 
-    public void addEvent() {
 
+    public void addEvent(Integer id, String name, String startDate, Organizer organizer, String place) {
+        eventsDB.add(createEvent(id, name, startDate, organizer, place));
     }
     public Event createEvent(){
 
@@ -296,6 +299,5 @@ public class EventsDB {
     }
 
     public void saveEvent(){
-
     }
 }
