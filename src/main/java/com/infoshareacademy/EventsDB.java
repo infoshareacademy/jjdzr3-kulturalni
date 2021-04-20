@@ -283,6 +283,19 @@ public class EventsDB {
         }
     }
 
+    public void addEvent() {
 
+    }
+    public Event createEvent(){
 
+    }
+    public void removeEvent() {
+
+    }
+    public void editEvent(){
+    }
+
+    public void saveEvent(){
+
+    }
 }
