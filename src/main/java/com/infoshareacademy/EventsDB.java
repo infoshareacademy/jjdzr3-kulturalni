@@ -17,7 +17,6 @@ import java.util.Collections;
 import java.util.List;
 
 
-
 public class EventsDB {
     private List<Event> eventsDB = new ArrayList<>();
     private Path path = Paths.get("src", "main", "resources", "data.json");
@@ -121,7 +120,6 @@ public class EventsDB {
     }
 
 
-
     public void setFilterByName(String[] args) {
         setNoneEventsToDisplay();
         String filterString = args[2];
@@ -141,7 +139,7 @@ public class EventsDB {
     }
 
 
-    public boolean setFilterByDate(String [] args) {
+    public boolean setFilterByDate(String[] args) {
         String startingTime;
         String endingTime;
 
@@ -182,7 +180,7 @@ public class EventsDB {
                     }
                 }
             }
-            return  true;
+            return true;
         } else {
             System.out.println("Podaj datę we właściwym formacie.");
             return false;
@@ -224,31 +222,30 @@ public class EventsDB {
     }*/
 
 
-
-    public void sortByConfiguration (String direction, String key) {
+    public void sortByConfiguration(String direction, String key) {
         if (key.equals("ID")) {
             setSortParameterID();
             if (direction.equals("ASC")) {
                 Collections.sort(eventsDB);
-            } else  if (direction.equals("DSC")) {
+            } else if (direction.equals("DSC")) {
                 Collections.sort(eventsDB, Collections.reverseOrder());
             } else {
                 Collections.sort(eventsDB);
             }
-        }else if (key.equals("NAME")) {
+        } else if (key.equals("NAME")) {
             setSortParameterName();
             if (direction.equals("ASC")) {
                 Collections.sort(eventsDB);
-            } else  if (direction.equals("DSC")) {
+            } else if (direction.equals("DSC")) {
                 Collections.sort(eventsDB, Collections.reverseOrder());
             } else {
                 Collections.sort(eventsDB);
             }
-        }else if (key.equals("DATE")) {
+        } else if (key.equals("DATE")) {
             setSortParameterDate();
             if (direction.equals("ASC")) {
                 Collections.sort(eventsDB);
-            } else  if (direction.equals("DSC")) {
+            } else if (direction.equals("DSC")) {
                 Collections.sort(eventsDB, Collections.reverseOrder());
             } else {
                 Collections.sort(eventsDB);
@@ -256,7 +253,7 @@ public class EventsDB {
         } else {
             if (direction.equals("ASC")) {
                 Collections.sort(eventsDB);
-            } else  if (direction.equals("DSC")) {
+            } else if (direction.equals("DSC")) {
                 Collections.sort(eventsDB, Collections.reverseOrder());
             } else {
                 Collections.sort(eventsDB);
@@ -265,21 +262,21 @@ public class EventsDB {
     }
 
     public void setSortParameterID() {
-        for (Event event: eventsDB) {
+        for (Event event : eventsDB) {
             Integer id = event.getEventJson().getId();
             event.setSortParameter(id.toString());
         }
     }
 
     public void setSortParameterName() {
-        for (Event event: eventsDB) {
+        for (Event event : eventsDB) {
             String name = event.getEventJson().getName();
             event.setSortParameter(name);
         }
     }
 
     public void setSortParameterDate() {
-        for (Event event: eventsDB) {
+        for (Event event : eventsDB) {
             String[] date = event.getEventJson().getStartDate().split("T");
             event.setSortParameter(date[0]);
         }
@@ -289,16 +286,19 @@ public class EventsDB {
     public void addEvent(Integer id, String name, String startDate, Organizer organizer, String place) {
         eventsDB.add(createEvent(id, name, startDate, organizer, place));
     }
-    public Event createEvent(Integer id, String name, String startDate, Organizer organizer, String place){
+
+    public Event createEvent(Integer id, String name, String startDate, Organizer organizer, String place) {
         Event event = new Event(id, name, startDate, organizer, place);
         return event;
     }
-    public void removeEvent() {
 
-    }
-    public void editEvent(){
+    public void removeEvent(Integer id) {
+        eventsDB.remove(id);
     }
 
-    public void saveEvent(){
+    public void editEvent() {
+    }
+
+    public void saveEvent() {
     }
 }
