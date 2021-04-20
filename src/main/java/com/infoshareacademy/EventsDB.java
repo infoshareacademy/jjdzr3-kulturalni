@@ -289,8 +289,9 @@ public class EventsDB {
     public void addEvent(Integer id, String name, String startDate, Organizer organizer, String place) {
         eventsDB.add(createEvent(id, name, startDate, organizer, place));
     }
-    public Event createEvent(){
-
+    public Event createEvent(Integer id, String name, String startDate, Organizer organizer, String place){
+        Event event = new Event(id, name, startDate, organizer, place);
+        return event;
     }
     public void removeEvent() {
 
