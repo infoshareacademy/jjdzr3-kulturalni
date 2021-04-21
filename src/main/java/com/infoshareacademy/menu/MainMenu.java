@@ -1,6 +1,7 @@
 package com.infoshareacademy.menu;
 
-import com.infoshareacademy.events.Events;
+import com.infoshareacademy.EventsDB;
+import com.infoshareacademy.Favourities;
 
 import java.util.Scanner;
 
@@ -20,24 +21,30 @@ public class MainMenu {
         System.out.println("Wybierz odpowiedną opcję:");
     }
 
-    public void start(Events events) {
+    public void start(EventsDB eventsDB, Favourities favourities) {
         try {
             Scanner scanner = new Scanner(System.in);
             int key;
             printMenu();
             do {
+                MenuUtil menuUtil = new MenuUtil();
                 key = scanner.nextInt();
                 switch (key) {
                     case 1:
                         SelectEventMenu selectEventMenu = new SelectEventMenu();
-                        selectEventMenu.start(events);
+                        selectEventMenu.start(eventsDB);
+                        menuUtil.clearScreen();
                         break;
                     case 2:
                         SortMenu sortMenu = new SortMenu();
-                        sortMenu.start(events);
+                        sortMenu.start(eventsDB);
                         System.out.println("Menu sortowania");
+                        menuUtil.clearScreen();
                         break;
                     case 3:
+                        FavouriteMenu favouriteMenu = new FavouriteMenu();
+                        favouriteMenu.start(favourities);
+                        menuUtil.clearScreen();
                         break;
                     case 4:
                         System.out.println("Opcja 4");

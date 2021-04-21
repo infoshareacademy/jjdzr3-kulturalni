@@ -1,8 +1,7 @@
 package com.infoshareacademy.menu;
 
 
-import com.infoshareacademy.events.Events;
-import com.infoshareacademy.menu.MainMenu;
+import com.infoshareacademy.EventsDB;
 
 import java.util.Scanner;
 
@@ -20,31 +19,33 @@ public class SelectEventMenu extends MainMenu {
         System.out.println("Wybierz odpowiednią opcję:");
     }
 
-    public void start(Events events) {
-            Scanner selectScanner = new Scanner(System.in);
-            int key;
-            do {
-                printSelectEventMenu();
-                key = selectScanner.nextInt();
-                switch (key) {
-                    case 1:
-                        System.out.println("Wszystkie wydzrzenia:");
-                        events.displayAllEvents();
-                        System.out.print("\f");
-                        break;
-                    case 2:
-                        System.out.println("Pokazać wydarzenie numer:");
-                        System.out.println("Wpisz numer wydarzenia");
-                        events.displaySingleEvent();
-                        break;
-                    case 3:
-                        System.out.println("Powrót do menu głównego");
-                        printMenu();
-                        break;
-                    default:
-                        System.out.println("Wybierz poprawną opcję!");
-                }
+    public void start(EventsDB eventsDB) {
+        Scanner selectScanner = new Scanner(System.in);
+        int key;
+        do {
+            printSelectEventMenu();
+            key = selectScanner.nextInt();
+            switch (key) {
+                case 1:
+                    System.out.println("Wszystkie wydarzenia:");
+                    eventsDB.setAllEventsToDisplay();
+                    eventsDB.displayEvents("1");
+                    break;
+                case 2:
+                    System.out.println("Pokazać wydarzenie o numerze ID:");
+                    System.out.println("Wpisz ID wydarzenia");
+                    Scanner scannerID = new Scanner(System.in);
+                    int inputID = scannerID.nextInt();
+                    eventsDB.displaySingleEvent(inputID);
+                    break;
+                case 3:
+                    System.out.println("Powrót do menu głównego");
+                    printMenu();
+                    break;
+                default:
+                    System.out.println("Wybierz poprawną opcję!");
+            }
 
-            } while (key != 3);
-        }
+        } while (key != 3);
     }
+}
