@@ -3,8 +3,6 @@ package com.infoshareacademy;
 import com.google.gson.Gson;
 import com.infoshareacademy.DomainData.EventJson;
 import com.infoshareacademy.DomainData.Organizer;
-import com.infoshareacademy.DomainData.Place;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -302,22 +300,28 @@ public class EventsDB {
 
     public void editEvent(Integer id, String key) {
         Scanner scanner = new Scanner(System.in);
-        String newName = scanner.nextLine();
-        String newStartDate = scanner.nextLine();
-        String newOrganizer = scanner.nextLine();
-        String newPlace = scanner.nextLine();
         if (key.equals("NAME")) {
-            eventsDB.get(id).getEventJson().setName(newName);
+            System.out.print("New name: ");
+            String newName = scanner.nextLine();
+            eventsDB.get(1).getEventJson().setName(newName);
         } else if (key.equals("DATE")) {
+            System.out.print("New date: ");
+            String newStartDate = scanner.nextLine();
             eventsDB.get(id).getEventJson().setStartDate(newStartDate);
         } else if (key.equals("ORGANIZER")) {
-            eventsDB.get(id).getEventJson().getOrganizer().setDesignation(newOrganizer);
+            System.out.print("New Designation: ");
+            String newDesignation = scanner.nextLine();
+            eventsDB.get(id).getEventJson().getOrganizer().setDesignation(newDesignation);
         } else if (key.equals("PLACE")) {
-            eventsDB.get(id).getEventJson().getPlace().setName(newName);
+            System.out.print("New plane: ");
+            String newPlace = scanner.nextLine();
+            eventsDB.get(id).getEventJson().getPlace().setName(newPlace);
         }
+        saveEvent();
     }
 
     public void saveEvent() {
+
         Gson gson = new Gson();
         String jsonString = gson.toJson(eventsDB);
 
