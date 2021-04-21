@@ -283,6 +283,7 @@ public class EventsDB {
         }
     }
 
+    public void searchElement() {
 
-
+    }
 }
