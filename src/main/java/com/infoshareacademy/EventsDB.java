@@ -13,7 +13,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+import java.util.Scanner;
+import java.util.regex.Pattern;
 
 
 public class EventsDB {
@@ -119,7 +120,6 @@ public class EventsDB {
     }
 
 
-
     public void setFilterByName(String[] args) {
         setNoneEventsToDisplay();
         String filterString = args[2];
@@ -139,7 +139,7 @@ public class EventsDB {
     }
 
 
-    public boolean setFilterByDate(String [] args) {
+    public boolean setFilterByDate(String[] args) {
         String startingTime;
         String endingTime;
 
@@ -180,7 +180,7 @@ public class EventsDB {
                     }
                 }
             }
-            return  true;
+            return true;
         } else {
             System.out.println("Podaj datę we właściwym formacie.");
             return false;
@@ -283,7 +283,13 @@ public class EventsDB {
         }
     }
 
-    public void searchElement() {
-
+    public void searchElement(String key) {
+        ArrayList<String> matches = new ArrayList<String>();
+        Pattern firstThreeChars = Pattern.compile("([a-zA-Z0-9]){3,}");
+        for (Event event : eventsDB) {
+            if (firstThreeChars.matcher((CharSequence) event).matches()) {
+                matches.add(String.valueOf(event));
+            }
+        }
     }
 }
