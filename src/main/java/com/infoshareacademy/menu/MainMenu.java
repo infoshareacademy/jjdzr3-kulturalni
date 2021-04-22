@@ -1,5 +1,6 @@
 package com.infoshareacademy.menu;
 
+import com.infoshareacademy.Configuration;
 import com.infoshareacademy.EventsDB;
 import com.infoshareacademy.Favourities;
 
@@ -18,33 +19,30 @@ public class MainMenu {
         System.out.println("|        4. Option 4                                       |");
         System.out.println("|        5. Wyjście                                        |");
         System.out.println("============================================================");
-        System.out.println("Wybierz odpowiedną opcję:");
+        System.out.println("Wybierz odpowiednią opcję:");
     }
 
-    public void start(EventsDB eventsDB, Favourities favourities) {
+    public void start(EventsDB eventsDB, Favourities favourities, Configuration configuration) {
         try {
             Scanner scanner = new Scanner(System.in);
-            int key;
             printMenu();
+            int key;
             do {
                 MenuUtil menuUtil = new MenuUtil();
-                key = scanner.nextInt();
+                key = menuUtil.checkInput(scanner);
                 switch (key) {
                     case 1:
                         SelectEventMenu selectEventMenu = new SelectEventMenu();
                         selectEventMenu.start(eventsDB);
-                        menuUtil.clearScreen();
                         break;
                     case 2:
                         SortMenu sortMenu = new SortMenu();
-                        sortMenu.start(eventsDB);
+                        sortMenu.start(eventsDB,configuration);
                         System.out.println("Menu sortowania");
-                        menuUtil.clearScreen();
                         break;
                     case 3:
                         FavouriteMenu favouriteMenu = new FavouriteMenu();
                         favouriteMenu.start(favourities);
-                        menuUtil.clearScreen();
                         break;
                     case 4:
                         System.out.println("Opcja 4");
@@ -56,7 +54,7 @@ public class MainMenu {
                         System.out.println("Wybierz poprawną opcję!");
                 }
             } while (key != 5);
-    } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Wpisz poprawny symbol!");
         }

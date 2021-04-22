@@ -24,7 +24,8 @@ public class SelectEventMenu extends MainMenu {
         int key;
         do {
             printSelectEventMenu();
-            key = selectScanner.nextInt();
+            MenuUtil menuUtil = new MenuUtil();
+            key = menuUtil.checkInput(selectScanner);
             switch (key) {
                 case 1:
                     System.out.println("Wszystkie wydarzenia:");
@@ -35,7 +36,7 @@ public class SelectEventMenu extends MainMenu {
                     System.out.println("Pokazać wydarzenie o numerze ID:");
                     System.out.println("Wpisz ID wydarzenia");
                     Scanner scannerID = new Scanner(System.in);
-                    int inputID = scannerID.nextInt();
+                    int inputID = menuUtil.checkInput(scannerID);
                     eventsDB.displaySingleEvent(inputID);
                     break;
                 case 3:
