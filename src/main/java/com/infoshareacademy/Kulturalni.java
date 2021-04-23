@@ -1,6 +1,10 @@
 package com.infoshareacademy;
 
 
+import com.infoshareacademy.DomainData.Id;
+
+import java.net.IDN;
+
 public class Kulturalni {
     EventsDB eventsDB;
     Configuration configuration;
@@ -36,7 +40,7 @@ public class Kulturalni {
         eventsDB.setAllFavouritiesToDisplay(favourities); // Tu jest tymczasowo wywołane wyświetlenie wszystkich ulubionych
         eventsDB.displayEvents(configuration.getDateFormat());    // Tu jest tymczasowo do wywołania wyświetlenia wszystkich eventów, fla których display=1
 
-
+        eventsDB.searchElement("Id");
     }
 
     public static void displayHelp() {

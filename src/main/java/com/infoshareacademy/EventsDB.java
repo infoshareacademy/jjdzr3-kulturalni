@@ -2,7 +2,6 @@ package com.infoshareacademy;
 
 import com.google.gson.Gson;
 import com.infoshareacademy.DomainData.EventJson;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
@@ -222,31 +222,30 @@ public class EventsDB {
     }*/
 
 
-
-    public void sortByConfiguration (String direction, String key) {
+    public void sortByConfiguration(String direction, String key) {
         if (key.equals("ID")) {
             setSortParameterID();
             if (direction.equals("ASC")) {
                 Collections.sort(eventsDB);
-            } else  if (direction.equals("DSC")) {
+            } else if (direction.equals("DSC")) {
                 Collections.sort(eventsDB, Collections.reverseOrder());
             } else {
                 Collections.sort(eventsDB);
             }
-        }else if (key.equals("NAME")) {
+        } else if (key.equals("NAME")) {
             setSortParameterName();
             if (direction.equals("ASC")) {
                 Collections.sort(eventsDB);
-            } else  if (direction.equals("DSC")) {
+            } else if (direction.equals("DSC")) {
                 Collections.sort(eventsDB, Collections.reverseOrder());
             } else {
                 Collections.sort(eventsDB);
             }
-        }else if (key.equals("DATE")) {
+        } else if (key.equals("DATE")) {
             setSortParameterDate();
             if (direction.equals("ASC")) {
                 Collections.sort(eventsDB);
-            } else  if (direction.equals("DSC")) {
+            } else if (direction.equals("DSC")) {
                 Collections.sort(eventsDB, Collections.reverseOrder());
             } else {
                 Collections.sort(eventsDB);
@@ -254,7 +253,7 @@ public class EventsDB {
         } else {
             if (direction.equals("ASC")) {
                 Collections.sort(eventsDB);
-            } else  if (direction.equals("DSC")) {
+            } else if (direction.equals("DSC")) {
                 Collections.sort(eventsDB, Collections.reverseOrder());
             } else {
                 Collections.sort(eventsDB);
@@ -263,33 +262,58 @@ public class EventsDB {
     }
 
     public void setSortParameterID() {
-        for (Event event: eventsDB) {
+        for (Event event : eventsDB) {
             Integer id = event.getEventJson().getId();
             event.setSortParameter(id.toString());
         }
     }
 
     public void setSortParameterName() {
-        for (Event event: eventsDB) {
+        for (Event event : eventsDB) {
             String name = event.getEventJson().getName();
             event.setSortParameter(name);
         }
     }
 
     public void setSortParameterDate() {
-        for (Event event: eventsDB) {
+        for (Event event : eventsDB) {
             String[] date = event.getEventJson().getStartDate().split("T");
             event.setSortParameter(date[0]);
         }
     }
 
     public void searchElement(String key) {
-        ArrayList<String> matches = new ArrayList<String>();
         Pattern firstThreeChars = Pattern.compile("([a-zA-Z0-9]){3,}");
-        for (Event event : eventsDB) {
-            if (firstThreeChars.matcher((CharSequence) event).matches()) {
-                matches.add(String.valueOf(event));
+        boolean found = false;
+        if (key.equals("ID")) {
+            for (Event s : eventsDB) {
+            if (s.equals(firstThreeChars)) {
+                found = true;
+                break;
             }
+        }
+        } else if (key.equals("NAME")) {
+            for (Event s : eventsDB) {
+                if (s.equals(firstThreeChars)) {
+                    found = true;
+                    break;
+                }
+            }
+        } else if (key.equals("PLACE")) {
+            for (Event s : eventsDB) {
+                if (s.equals(firstThreeChars)) {
+                    found = true;
+                    break;
+                }
+            }
+        }else if (key.equals("ORGANIZER")) {
+            for (Event s : eventsDB) {
+                if (s.equals(firstThreeChars)) {
+                    found = true;
+                    break;
+                }
+            }
+
         }
     }
 }
