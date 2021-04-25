@@ -38,9 +38,6 @@ public class EventsDB {
     }
 
     public void displayEvents(String type) {
-        displayGivenEvents(type, eventsDB);
-    }
-    public void displayGivenEvents(String type, List<Event> eventList) {
         StringBuilder naglowek = new StringBuilder();
 
         String szerokoscTabeli = "---------------------------------------------------------------------------------------------------------";
@@ -78,7 +75,7 @@ public class EventsDB {
         System.out.println(szerokoscTabeli);
 
         //UZUPEŁNIANIE TABELI WYDARZENIAMI
-        for (Event event : eventList) {
+        for (Event event : eventsDB) {
 
             if (event.getDisplay() == 1) {
 
@@ -101,8 +98,6 @@ public class EventsDB {
                 System.out.println(tabelaWydarzenia);
             }
         }
-        System.out.println(szerokoscTabeli);
-        System.out.println("Ilość wydarzeń: " + eventsDB.size());
     }
 
     public void setAllEventsToDisplay() {
@@ -281,7 +276,7 @@ public class EventsDB {
     }
 
     public void searchElement(String key) {
-        //TODO compareToIgnoreCase // Pattern threeChars = Pattern.compile("([a-zA-Z0-9]){3,}");
+        //TODO compareToIgnoreCase // Pattern threeChars = Pattern.compile("([a-zA-Z0-9]){3,}"); ???
         int charCount = 3;
         String searchElement;
         System.out.print("Wprowadź co najmniej 3 znaki: ");
@@ -296,33 +291,31 @@ public class EventsDB {
 
         } while (charCount < 3);
 
-        List<Event> eventList = new ArrayList<>();
         switch (key) {
-            case "Id":
-                for (Event event : eventsDB) {
-                    if (event.getEventJson().getId().toString().startsWith(searchElement)) {
-                        eventList.add(event);
+            case "ID":
+                for (int i =0; i < eventsDB.size(); i++) {
+                    if (eventsDB.get(i).getEventJson().getId().toString().startsWith(searchElement)) {
+                        eventsDB.get(i).setDisplay(1);
                     }
                 }
             case "NAME":
-                for (Event event : eventsDB) {
-                    if (event.getEventJson().getName().toUpperCase(Locale.ROOT).startsWith(searchElement.toUpperCase(Locale.ROOT))) {
-                        eventList.add(event);
+                for (int i =0; i < eventsDB.size(); i++) {
+                    if (eventsDB.get(i).getEventJson().getName().toUpperCase().startsWith(searchElement.toUpperCase())) {
+                        eventsDB.get(i).setDisplay(1);
                     }
                 }
             case "PLACE":
-                for (Event event : eventsDB) {
-                    if (event.getEventJson().getPlace().getName().toUpperCase(Locale.ROOT).startsWith(searchElement.toUpperCase(Locale.ROOT))) {
-                        eventList.add(event);
+                for (int i =0; i < eventsDB.size(); i++) {
+                    if (eventsDB.get(i).getEventJson().getPlace().getName().toUpperCase().startsWith(searchElement.toUpperCase())) {
+                        eventsDB.get(i).setDisplay(1);
                     }
                 }
             case "ORGANIZER":
-                for (Event event : eventsDB) {
-                    if (event.getEventJson().getOrganizer().getDesignation().toUpperCase(Locale.ROOT).startsWith(searchElement.toUpperCase(Locale.ROOT))) {
-                        eventList.add(event);
+                for (int i =0; i < eventsDB.size(); i++) {
+                    if (eventsDB.get(i).getEventJson().getOrganizer().getDesignation().toUpperCase().startsWith(searchElement.toUpperCase())) {
+                        eventsDB.get(i).setDisplay(1);
                     }
                 }
         }
-        displayGivenEvents("0",eventList);
     }
 }
