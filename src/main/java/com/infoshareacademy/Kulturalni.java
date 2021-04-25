@@ -40,7 +40,8 @@ public class Kulturalni {
         eventsDB.setAllFavouritiesToDisplay(favourities); // Tu jest tymczasowo wywołane wyświetlenie wszystkich ulubionych
         eventsDB.displayEvents(configuration.getDateFormat());    // Tu jest tymczasowo do wywołania wyświetlenia wszystkich eventów, fla których display=1
 
-        eventsDB.searchElement("Id");
+        eventsDB.displayEvents(configuration.getDateFormat());
+        eventsDB.searchElement("ORGANIZER");
     }
 
     public static void displayHelp() {

@@ -9,12 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.*;
 
 
 public class EventsDB {
@@ -43,6 +38,9 @@ public class EventsDB {
     }
 
     public void displayEvents(String type) {
+        displayGivenEvents(type, eventsDB);
+    }
+    public void displayGivenEvents(String type, List<Event> eventList) {
         StringBuilder naglowek = new StringBuilder();
 
         String szerokoscTabeli = "---------------------------------------------------------------------------------------------------------";
@@ -80,7 +78,7 @@ public class EventsDB {
         System.out.println(szerokoscTabeli);
 
         //UZUPEŁNIANIE TABELI WYDARZENIAMI
-        for (Event event : eventsDB) {
+        for (Event event : eventList) {
 
             if (event.getDisplay() == 1) {
 
@@ -283,37 +281,48 @@ public class EventsDB {
     }
 
     public void searchElement(String key) {
-        Pattern firstThreeChars = Pattern.compile("([a-zA-Z0-9]){3,}");
-        boolean found = false;
-        if (key.equals("ID")) {
-            for (Event s : eventsDB) {
-            if (s.equals(firstThreeChars)) {
-                found = true;
-                break;
-            }
-        }
-        } else if (key.equals("NAME")) {
-            for (Event s : eventsDB) {
-                if (s.equals(firstThreeChars)) {
-                    found = true;
-                    break;
-                }
-            }
-        } else if (key.equals("PLACE")) {
-            for (Event s : eventsDB) {
-                if (s.equals(firstThreeChars)) {
-                    found = true;
-                    break;
-                }
-            }
-        }else if (key.equals("ORGANIZER")) {
-            for (Event s : eventsDB) {
-                if (s.equals(firstThreeChars)) {
-                    found = true;
-                    break;
-                }
+        //TODO compareToIgnoreCase // Pattern threeChars = Pattern.compile("([a-zA-Z0-9]){3,}");
+        int charCount = 3;
+        String searchElement;
+        System.out.print("Wprowadź co najmniej 3 znaki: ");
+        do {
+            Scanner scanner = new Scanner(System.in);
+            searchElement = scanner.nextLine();
+            charCount = searchElement.length();
+
+            if(charCount < 3) {
+                System.out.print("Wprowadź co najmniej 3 znaki: ");
             }
 
+        } while (charCount < 3);
+
+        List<Event> eventList = new ArrayList<>();
+        switch (key) {
+            case "Id":
+                for (Event event : eventsDB) {
+                    if (event.getEventJson().getId().toString().startsWith(searchElement)) {
+                        eventList.add(event);
+                    }
+                }
+            case "NAME":
+                for (Event event : eventsDB) {
+                    if (event.getEventJson().getName().toUpperCase(Locale.ROOT).startsWith(searchElement.toUpperCase(Locale.ROOT))) {
+                        eventList.add(event);
+                    }
+                }
+            case "PLACE":
+                for (Event event : eventsDB) {
+                    if (event.getEventJson().getPlace().getName().toUpperCase(Locale.ROOT).startsWith(searchElement.toUpperCase(Locale.ROOT))) {
+                        eventList.add(event);
+                    }
+                }
+            case "ORGANIZER":
+                for (Event event : eventsDB) {
+                    if (event.getEventJson().getOrganizer().getDesignation().toUpperCase(Locale.ROOT).startsWith(searchElement.toUpperCase(Locale.ROOT))) {
+                        eventList.add(event);
+                    }
+                }
         }
+        displayGivenEvents("0",eventList);
     }
 }
