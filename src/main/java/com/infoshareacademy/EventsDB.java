@@ -40,8 +40,8 @@ public class EventsDB {
 
     public void displaySingleEvent(Integer ID) {
         try {
-            for (Event event : eventsDB) {
-                if (ID.equals(event.getEventJson().getId())) {
+            if (isEvent(ID)) {
+                for ( Event event : eventsDB){
                     System.out.println();
                     System.out.println("ID wydarzenia " + ID);
                     System.out.println("Nazwa wydarzenia: " + event.getEventJson().getName());
@@ -55,11 +55,21 @@ public class EventsDB {
                     System.out.println("Data rozpoczęcia: " + event.getEventJson().getStartDate());
                     System.out.println("Data zakończenia: " + event.getEventJson().getEndDate());
                     System.out.println("Opis: " + event.getEventJson().getDescShort());
-                } // nie ma wydarzenia o takim numerze!!!!
-            }
+                    break;
+                }
+            } else System.out.println("Nie ma wydarzenia o takim numerze");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Nie ma wydarzenia o takim numerze");
         }
+    }
+
+    public boolean isEvent(Integer ID) {
+        for (int i = 0; i < eventsDB.size(); i++) {
+            if (ID.equals(eventsDB.get(i).getEventJson().getId())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void displayEvents(String type) {

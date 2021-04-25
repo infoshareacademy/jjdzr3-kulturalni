@@ -1,5 +1,6 @@
 package com.infoshareacademy.menu;
 
+import com.infoshareacademy.EventsDB;
 import com.infoshareacademy.Favourities;
 
 import java.util.Scanner;
@@ -19,7 +20,7 @@ public class FavouriteMenu extends MainMenu {
         System.out.println("Wybierz odpowiednią opcję:");
     }
 
-    public void start(Favourities favourities) {
+    public void start(Favourities favourities, EventsDB eventsDB) {
         Scanner selectScanner = new Scanner(System.in);
         int key;
         do {
@@ -29,7 +30,8 @@ public class FavouriteMenu extends MainMenu {
             switch (key) {
                 case 1:
                     System.out.println("Wszystkie ulubione wydzrzenia:");
-                    favourities.readFavourities();
+                    eventsDB.setAllFavouritiesToDisplay(favourities);
+                    eventsDB.displayEvents("1");
                     break;
                 case 2:
                     System.out.println("Dodaj wydarzenie do ulubionych:");

@@ -16,8 +16,7 @@ public class MainMenu {
         System.out.println("|        1. Pokaż wydarzenia                               |");
         System.out.println("|        2. Sortuj wydarzenia                              |");
         System.out.println("|        3. Ulubione wydarzenia                            |");
-        System.out.println("|        4. Option 4                                       |");
-        System.out.println("|        5. Wyjście                                        |");
+        System.out.println("|        4. Wyjście                                        |");
         System.out.println("============================================================");
         System.out.println("Wybierz odpowiednią opcję:");
     }
@@ -42,18 +41,15 @@ public class MainMenu {
                         break;
                     case 3:
                         FavouriteMenu favouriteMenu = new FavouriteMenu();
-                        favouriteMenu.start(favourities);
+                        favouriteMenu.start(favourities,eventsDB);
                         break;
                     case 4:
-                        System.out.println("Opcja 4");
-                        break;
-                    case 5:
                         System.out.println("Wyjście");
                         break;
                     default:
                         System.out.println("Wybierz poprawną opcję!");
                 }
-            } while (key != 5);
+            } while (key != 4);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Wpisz poprawny symbol!");
