@@ -39,6 +39,7 @@ public class FavouriteMenu extends MainMenu {
                     Scanner scannerID = new Scanner(System.in);
                     int addID = menuUtil.checkInput(scannerID);
                     favourities.addFavourite(addID);
+                    System.out.println("Wydarzenie dodane.");
                     break;
                 case 3:
                     System.out.println("Usuń wydarzenie z ulubionych:");
@@ -46,6 +47,8 @@ public class FavouriteMenu extends MainMenu {
                     Scanner scanner = new Scanner(System.in);
                     int removeID = menuUtil.checkInput(scanner);
                     favourities.removeFavourite(removeID);
+                    System.out.println("Wydarzenie usunięte.");
+                    break;
                 case 4:
                     System.out.println("Powrót do menu głównego");
                     printMenu();

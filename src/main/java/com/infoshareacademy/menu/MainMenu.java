@@ -44,7 +44,7 @@ public class MainMenu {
                         favouriteMenu.start(favourities,eventsDB);
                         break;
                     case 4:
-                        System.out.println("Wyjście");
+                        System.out.println("Wyjście. Do zobaczenia.");
                         break;
                     default:
                         System.out.println("Wybierz poprawną opcję!");
