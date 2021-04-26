@@ -2,7 +2,6 @@ package com.infoshareacademy;
 
 import com.google.gson.Gson;
 import com.infoshareacademy.DomainData.EventJson;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,10 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+import java.util.*;
 
 
 public class EventsDB {
@@ -102,8 +98,6 @@ public class EventsDB {
                 System.out.println(tabelaWydarzenia);
             }
         }
-        System.out.println(szerokoscTabeli);
-        System.out.println("Ilość wydarzeń: " + eventsDB.size());
     }
 
     public void setAllEventsToDisplay() {
@@ -117,7 +111,6 @@ public class EventsDB {
             event.setDisplay(0);
         }
     }
-
 
 
     public void setFilterByName(String[] args) {
@@ -139,7 +132,7 @@ public class EventsDB {
     }
 
 
-    public boolean setFilterByDate(String [] args) {
+    public boolean setFilterByDate(String[] args) {
         String startingTime;
         String endingTime;
 
@@ -180,7 +173,7 @@ public class EventsDB {
                     }
                 }
             }
-            return  true;
+            return true;
         } else {
             System.out.println("Podaj datę we właściwym formacie.");
             return false;
@@ -222,31 +215,30 @@ public class EventsDB {
     }*/
 
 
-
-    public void sortByConfiguration (String direction, String key) {
+    public void sortByConfiguration(String direction, String key) {
         if (key.equals("ID")) {
             setSortParameterID();
             if (direction.equals("ASC")) {
                 Collections.sort(eventsDB);
-            } else  if (direction.equals("DSC")) {
+            } else if (direction.equals("DSC")) {
                 Collections.sort(eventsDB, Collections.reverseOrder());
             } else {
                 Collections.sort(eventsDB);
             }
-        }else if (key.equals("NAME")) {
+        } else if (key.equals("NAME")) {
             setSortParameterName();
             if (direction.equals("ASC")) {
                 Collections.sort(eventsDB);
-            } else  if (direction.equals("DSC")) {
+            } else if (direction.equals("DSC")) {
                 Collections.sort(eventsDB, Collections.reverseOrder());
             } else {
                 Collections.sort(eventsDB);
             }
-        }else if (key.equals("DATE")) {
+        } else if (key.equals("DATE")) {
             setSortParameterDate();
             if (direction.equals("ASC")) {
                 Collections.sort(eventsDB);
-            } else  if (direction.equals("DSC")) {
+            } else if (direction.equals("DSC")) {
                 Collections.sort(eventsDB, Collections.reverseOrder());
             } else {
                 Collections.sort(eventsDB);
@@ -254,7 +246,7 @@ public class EventsDB {
         } else {
             if (direction.equals("ASC")) {
                 Collections.sort(eventsDB);
-            } else  if (direction.equals("DSC")) {
+            } else if (direction.equals("DSC")) {
                 Collections.sort(eventsDB, Collections.reverseOrder());
             } else {
                 Collections.sort(eventsDB);
@@ -263,26 +255,67 @@ public class EventsDB {
     }
 
     public void setSortParameterID() {
-        for (Event event: eventsDB) {
+        for (Event event : eventsDB) {
             Integer id = event.getEventJson().getId();
             event.setSortParameter(id.toString());
         }
     }
 
     public void setSortParameterName() {
-        for (Event event: eventsDB) {
+        for (Event event : eventsDB) {
             String name = event.getEventJson().getName();
             event.setSortParameter(name);
         }
     }
 
     public void setSortParameterDate() {
-        for (Event event: eventsDB) {
+        for (Event event : eventsDB) {
             String[] date = event.getEventJson().getStartDate().split("T");
             event.setSortParameter(date[0]);
         }
     }
 
+    public void searchElement(String key) {
+        //TODO compareToIgnoreCase // Pattern threeChars = Pattern.compile("([a-zA-Z0-9]){3,}"); ???
+        int charCount = 3;
+        String searchElement;
+        System.out.print("Wprowadź co najmniej 3 znaki: ");
+        do {
+            Scanner scanner = new Scanner(System.in);
+            searchElement = scanner.nextLine();
+            charCount = searchElement.length();
 
+            if(charCount < 3) {
+                System.out.print("Wprowadź co najmniej 3 znaki: ");
+            }
 
+        } while (charCount < 3);
+
+        switch (key) {
+            case "ID":
+                for (int i =0; i < eventsDB.size(); i++) {
+                    if (eventsDB.get(i).getEventJson().getId().toString().startsWith(searchElement)) {
+                        eventsDB.get(i).setDisplay(1);
+                    }
+                }
+            case "NAME":
+                for (int i =0; i < eventsDB.size(); i++) {
+                    if (eventsDB.get(i).getEventJson().getName().toUpperCase().startsWith(searchElement.toUpperCase())) {
+                        eventsDB.get(i).setDisplay(1);
+                    }
+                }
+            case "PLACE":
+                for (int i =0; i < eventsDB.size(); i++) {
+                    if (eventsDB.get(i).getEventJson().getPlace().getName().toUpperCase().startsWith(searchElement.toUpperCase())) {
+                        eventsDB.get(i).setDisplay(1);
+                    }
+                }
+            case "ORGANIZER":
+                for (int i =0; i < eventsDB.size(); i++) {
+                    if (eventsDB.get(i).getEventJson().getOrganizer().getDesignation().toUpperCase().startsWith(searchElement.toUpperCase())) {
+                        eventsDB.get(i).setDisplay(1);
+                    }
+                }
+        }
+    }
 }
