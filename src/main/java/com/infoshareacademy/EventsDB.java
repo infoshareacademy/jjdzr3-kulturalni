@@ -2,7 +2,7 @@ package com.infoshareacademy;
 
 import com.google.gson.Gson;
 import com.infoshareacademy.DomainData.EventJson;
-import com.infoshareacademy.DomainData.Organizer;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -100,8 +100,6 @@ public class EventsDB {
                 System.out.println(tabelaWydarzenia);
             }
         }
-        System.out.println(szerokoscTabeli);
-        System.out.println("Ilość wydarzeń: " + eventsDB.size());
     }
 
     public void setAllEventsToDisplay() {
@@ -136,7 +134,7 @@ public class EventsDB {
     }
 
 
-    public boolean setFilterByDate(String[] args) {
+    public boolean setFilterByDate(String [] args) {
         String startingTime;
         String endingTime;
 
@@ -219,30 +217,31 @@ public class EventsDB {
     }*/
 
 
-    public void sortByConfiguration(String direction, String key) {
+
+    public void sortByConfiguration (String direction, String key) {
         if (key.equals("ID")) {
             setSortParameterID();
             if (direction.equals("ASC")) {
                 Collections.sort(eventsDB);
-            } else if (direction.equals("DSC")) {
+            } else  if (direction.equals("DSC")) {
                 Collections.sort(eventsDB, Collections.reverseOrder());
             } else {
                 Collections.sort(eventsDB);
             }
-        } else if (key.equals("NAME")) {
+        }else if (key.equals("NAME")) {
             setSortParameterName();
             if (direction.equals("ASC")) {
                 Collections.sort(eventsDB);
-            } else if (direction.equals("DSC")) {
+            } else  if (direction.equals("DSC")) {
                 Collections.sort(eventsDB, Collections.reverseOrder());
             } else {
                 Collections.sort(eventsDB);
             }
-        } else if (key.equals("DATE")) {
+        }else if (key.equals("DATE")) {
             setSortParameterDate();
             if (direction.equals("ASC")) {
                 Collections.sort(eventsDB);
-            } else if (direction.equals("DSC")) {
+            } else  if (direction.equals("DSC")) {
                 Collections.sort(eventsDB, Collections.reverseOrder());
             } else {
                 Collections.sort(eventsDB);
@@ -250,7 +249,7 @@ public class EventsDB {
         } else {
             if (direction.equals("ASC")) {
                 Collections.sort(eventsDB);
-            } else if (direction.equals("DSC")) {
+            } else  if (direction.equals("DSC")) {
                 Collections.sort(eventsDB, Collections.reverseOrder());
             } else {
                 Collections.sort(eventsDB);
@@ -259,27 +258,39 @@ public class EventsDB {
     }
 
     public void setSortParameterID() {
-        for (Event event : eventsDB) {
+        for (Event event: eventsDB) {
             Integer id = event.getEventJson().getId();
             event.setSortParameter(id.toString());
         }
     }
 
     public void setSortParameterName() {
-        for (Event event : eventsDB) {
+        for (Event event: eventsDB) {
             String name = event.getEventJson().getName();
             event.setSortParameter(name);
         }
     }
 
     public void setSortParameterDate() {
-        for (Event event : eventsDB) {
+        for (Event event: eventsDB) {
             String[] date = event.getEventJson().getStartDate().split("T");
             event.setSortParameter(date[0]);
         }
     }
 
+    public void searchElement(String key) {
+        //TODO compareToIgnoreCase // Pattern threeChars = Pattern.compile("([a-zA-Z0-9]){3,}"); ???
+        int charCount = 3;
+        String searchElement;
+        System.out.print("Wprowadź co najmniej 3 znaki: ");
+        do {
+            Scanner scanner = new Scanner(System.in);
+            searchElement = scanner.nextLine();
+            charCount = searchElement.length();
 
+            if(charCount < 3) {
+                System.out.print("Wprowadź co najmniej 3 znaki: ");
+            }
     public void addEvent(Integer id, String name, String startDate, Organizer organizer, String place) {
         eventsDB.add(createEvent(id, name, startDate, organizer, place));
         saveEvent();
@@ -322,6 +333,35 @@ public class EventsDB {
 
     public void saveEvent() {
 
+        } while (charCount < 3);
+
+        switch (key) {
+            case "ID":
+                for (int i =0; i < eventsDB.size(); i++) {
+                    if (eventsDB.get(i).getEventJson().getId().toString().startsWith(searchElement)) {
+                        eventsDB.get(i).setDisplay(1);
+                    }
+                }
+            case "NAME":
+                for (int i =0; i < eventsDB.size(); i++) {
+                    if (eventsDB.get(i).getEventJson().getName().toUpperCase().startsWith(searchElement.toUpperCase())) {
+                        eventsDB.get(i).setDisplay(1);
+                    }
+                }
+            case "PLACE":
+                for (int i =0; i < eventsDB.size(); i++) {
+                    if (eventsDB.get(i).getEventJson().getPlace().getName().toUpperCase().startsWith(searchElement.toUpperCase())) {
+                        eventsDB.get(i).setDisplay(1);
+                    }
+                }
+            case "ORGANIZER":
+                for (int i =0; i < eventsDB.size(); i++) {
+                    if (eventsDB.get(i).getEventJson().getOrganizer().getDesignation().toUpperCase().startsWith(searchElement.toUpperCase())) {
+                        eventsDB.get(i).setDisplay(1);
+                    }
+                }
+        }
+    }
         Gson gson = new Gson();
         String jsonString = gson.toJson(eventsDB);
 
