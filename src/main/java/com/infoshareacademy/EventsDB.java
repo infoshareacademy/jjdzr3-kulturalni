@@ -2,7 +2,8 @@ package com.infoshareacademy;
 
 import com.google.gson.Gson;
 import com.infoshareacademy.DomainData.EventJson;
-import org.apache.commons.lang3.StringUtils;
+import com.infoshareacademy.DomainData.Organizer;
+import com.infoshareacademy.DomainData.Place;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -134,7 +135,7 @@ public class EventsDB {
     }
 
 
-    public boolean setFilterByDate(String [] args) {
+    public boolean setFilterByDate(String[] args) {
         String startingTime;
         String endingTime;
 
@@ -217,31 +218,30 @@ public class EventsDB {
     }*/
 
 
-
-    public void sortByConfiguration (String direction, String key) {
+    public void sortByConfiguration(String direction, String key) {
         if (key.equals("ID")) {
             setSortParameterID();
             if (direction.equals("ASC")) {
                 Collections.sort(eventsDB);
-            } else  if (direction.equals("DSC")) {
+            } else if (direction.equals("DSC")) {
                 Collections.sort(eventsDB, Collections.reverseOrder());
             } else {
                 Collections.sort(eventsDB);
             }
-        }else if (key.equals("NAME")) {
+        } else if (key.equals("NAME")) {
             setSortParameterName();
             if (direction.equals("ASC")) {
                 Collections.sort(eventsDB);
-            } else  if (direction.equals("DSC")) {
+            } else if (direction.equals("DSC")) {
                 Collections.sort(eventsDB, Collections.reverseOrder());
             } else {
                 Collections.sort(eventsDB);
             }
-        }else if (key.equals("DATE")) {
+        } else if (key.equals("DATE")) {
             setSortParameterDate();
             if (direction.equals("ASC")) {
                 Collections.sort(eventsDB);
-            } else  if (direction.equals("DSC")) {
+            } else if (direction.equals("DSC")) {
                 Collections.sort(eventsDB, Collections.reverseOrder());
             } else {
                 Collections.sort(eventsDB);
@@ -249,7 +249,7 @@ public class EventsDB {
         } else {
             if (direction.equals("ASC")) {
                 Collections.sort(eventsDB);
-            } else  if (direction.equals("DSC")) {
+            } else if (direction.equals("DSC")) {
                 Collections.sort(eventsDB, Collections.reverseOrder());
             } else {
                 Collections.sort(eventsDB);
@@ -258,27 +258,27 @@ public class EventsDB {
     }
 
     public void setSortParameterID() {
-        for (Event event: eventsDB) {
+        for (Event event : eventsDB) {
             Integer id = event.getEventJson().getId();
             event.setSortParameter(id.toString());
         }
     }
 
     public void setSortParameterName() {
-        for (Event event: eventsDB) {
+        for (Event event : eventsDB) {
             String name = event.getEventJson().getName();
             event.setSortParameter(name);
         }
     }
 
     public void setSortParameterDate() {
-        for (Event event: eventsDB) {
+        for (Event event : eventsDB) {
             String[] date = event.getEventJson().getStartDate().split("T");
             event.setSortParameter(date[0]);
         }
     }
 
-    public void searchElement(String key) {
+    public String searchElement(String key) {
         //TODO compareToIgnoreCase // Pattern threeChars = Pattern.compile("([a-zA-Z0-9]){3,}"); ???
         int charCount = 3;
         String searchElement;
@@ -288,91 +288,104 @@ public class EventsDB {
             searchElement = scanner.nextLine();
             charCount = searchElement.length();
 
-            if(charCount < 3) {
+            if (charCount < 3) {
                 System.out.print("Wprowadź co najmniej 3 znaki: ");
             }
-    public void addEvent(Integer id, String name, String startDate, Organizer organizer, String place) {
-        eventsDB.add(createEvent(id, name, startDate, organizer, place));
-        saveEvent();
-        readEvent();
-    }
-
-    public Event createEvent(Integer id, String name, String startDate, Organizer organizer, String place) {
-        Event event = new Event(id, name, startDate, organizer, place);
-        return event;
-    }
-
-    public void removeEvent(Integer id) {
-        while (isEvent(id)) {
-            int position = eventsDB.indexOf(id);
-            eventsDB.remove(position);
-        }
-    }
-
-    public void editEvent(Integer id, String key) {
-        Scanner scanner = new Scanner(System.in);
-        if (key.equals("NAME")) {
-            System.out.print("New name: ");
-            String newName = scanner.nextLine();
-            eventsDB.get(1).getEventJson().setName(newName);
-        } else if (key.equals("DATE")) {
-            System.out.print("New date: ");
-            String newStartDate = scanner.nextLine();
-            eventsDB.get(id).getEventJson().setStartDate(newStartDate);
-        } else if (key.equals("ORGANIZER")) {
-            System.out.print("New Designation: ");
-            String newDesignation = scanner.nextLine();
-            eventsDB.get(id).getEventJson().getOrganizer().setDesignation(newDesignation);
-        } else if (key.equals("PLACE")) {
-            System.out.print("New plane: ");
-            String newPlace = scanner.nextLine();
-            eventsDB.get(id).getEventJson().getPlace().setName(newPlace);
-        }
-        saveEvent();
-    }
-
-    public void saveEvent() {
-
         } while (charCount < 3);
 
         switch (key) {
             case "ID":
-                for (int i =0; i < eventsDB.size(); i++) {
+                for (int i = 0; i < eventsDB.size(); i++) {
                     if (eventsDB.get(i).getEventJson().getId().toString().startsWith(searchElement)) {
                         eventsDB.get(i).setDisplay(1);
                     }
                 }
             case "NAME":
-                for (int i =0; i < eventsDB.size(); i++) {
+                for (int i = 0; i < eventsDB.size(); i++) {
                     if (eventsDB.get(i).getEventJson().getName().toUpperCase().startsWith(searchElement.toUpperCase())) {
                         eventsDB.get(i).setDisplay(1);
                     }
                 }
             case "PLACE":
-                for (int i =0; i < eventsDB.size(); i++) {
+                for (int i = 0; i < eventsDB.size(); i++) {
                     if (eventsDB.get(i).getEventJson().getPlace().getName().toUpperCase().startsWith(searchElement.toUpperCase())) {
                         eventsDB.get(i).setDisplay(1);
                     }
                 }
             case "ORGANIZER":
-                for (int i =0; i < eventsDB.size(); i++) {
+                for (int i = 0; i < eventsDB.size(); i++) {
                     if (eventsDB.get(i).getEventJson().getOrganizer().getDesignation().toUpperCase().startsWith(searchElement.toUpperCase())) {
                         eventsDB.get(i).setDisplay(1);
                     }
                 }
         }
+        return searchElement;
     }
-        Gson gson = new Gson();
-        String jsonString = gson.toJson(eventsDB);
 
-        try {
-            Files.writeString(path, jsonString);
-        } catch (IOException e) {
-            System.out.println("Nie można zapisać pliku.");
+    public void addEvent(Event event) {
+        eventsDB.add(event);
+    }
+
+    public void createEvent() {
+        EventJson eventJson = new EventJson();
+        eventJson.setId(getUserInputInt());
+        eventJson.getPlace().setName(getUserInputStr());
+        eventJson.setStartDate(getUserInputStr());
+        eventJson.setEndDate(getUserInputStr());
+        eventJson.setName(getUserInputStr());
+        eventJson.setCategoryId(getUserInputInt());
+        eventJson.getOrganizer().setId(getUserInputInt());
+        eventJson.getOrganizer().setDesignation(getUserInputStr());
+        eventJson.setActive(getUserInputInt());
+
+        eventsDB.
+    }
+
+    public void removeEvent() {
+    }
+
+    public void editEvent() {
+        System.out.println("Wybierz rekord do edycji");
+        searchElement("ID");
+        System.out.println("");
+        System.out.println("Czy chcesz edytować rekord");
+        System.out.println("1-tak, 2-nie, 3-usuń");
+        Scanner scanner = new Scanner(System.in);
+        Integer choice = scanner.nextInt();
+        if (choice == 1) {
+            System.out.println("Czy chcesz edytować Id");
+            System.out.println("1-tak, 2-nie,");
+            Integer pick = scanner.nextInt();
+            if (pick == 1) {
+                System.out.println("podaj nowe id");
+                Integer newValueId = scanner.nextInt();
+                for (int i = 0; i < eventsDB.size(); i++) {
+                    eventsDB.get(i).getEventJson().getId();
+                    eventsDB.get(i).getEventJson().setId(newValueId);
+                }
+            } else if (choice == 2) {
+
+            }
+
+            System.out.println("Czy chcesz edytować Nazwę");
+            System.out.println("1-tak, 2-nie,");
+            if (choice == 1) {
+                String newValueName = scanner.nextLine();
+                for (int i = 0; i < eventsDB.size(); i++) {
+                    eventsDB.get(i).getEventJson().setName(newValueName);
+                }
+            } else if (choice == 2) {
+
+            }
         }
     }
 
-    public boolean isEvent(Integer id) {
-        return eventsDB.contains(id);
+    public static String getUserInputStr() {
+        Scanner sc = new Scanner(System.in);
+        return sc.nextLine().trim();
+    }
+    public static Integer getUserInputInt() {
+        Scanner sc = new Scanner(System.in);
+        return sc.nextInt();
     }
 }
