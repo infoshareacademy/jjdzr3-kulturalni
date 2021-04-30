@@ -41,7 +41,7 @@ public class Kulturalni {
 //        eventsDB.displayEvents(configuration.getDateFormat());    // Tu jest tymczasowo do wywołania wyświetlenia wszystkich eventów, fla których display=1
 
         eventsDB.setNoneEventsToDisplay();
-        eventsDB.searchElement("NAME");
+        eventsDB.createEvent();
         eventsDB.displayEvents(configuration.getDateFormat());
     }
 
@@ -64,10 +64,6 @@ public class Kulturalni {
         System.out.println("kulturalni -filter -date -<start date> -<end date>      -> searches date");
         System.out.println();
     }
-
-
-
-
 
 
 }

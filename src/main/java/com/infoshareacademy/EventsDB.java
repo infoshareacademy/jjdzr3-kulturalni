@@ -18,6 +18,7 @@ import java.util.*;
 public class EventsDB {
     private List<Event> eventsDB = new ArrayList<>();
     private Path path = Paths.get("src", "main", "resources", "data.json");
+    static AddNewEvent addNewEvent = new AddNewEvent();
 
 
     public void readEvent() {
@@ -322,26 +323,42 @@ public class EventsDB {
         return searchElement;
     }
 
-    public void addEvent(Event event) {
-        eventsDB.add(event);
+    public void addEvent() {
+
     }
 
     public void createEvent() {
-        EventJson eventJson = new EventJson();
-        eventJson.setId(getUserInputInt());
-        eventJson.getPlace().setName(getUserInputStr());
-        eventJson.setStartDate(getUserInputStr());
-        eventJson.setEndDate(getUserInputStr());
-        eventJson.setName(getUserInputStr());
-        eventJson.setCategoryId(getUserInputInt());
-        eventJson.getOrganizer().setId(getUserInputInt());
-        eventJson.getOrganizer().setDesignation(getUserInputStr());
-        eventJson.setActive(getUserInputInt());
-
-        eventsDB.
+        Integer id = getUserInputInt();
+        String name = getUserInputStr();
+        String startDate = getUserInputStr();
+        Integer orgId = getUserInputInt();
+        String designation = getUserInputStr();
+        Organizer organizer = new Organizer(orgId, designation);
+        Integer placeId = getUserInputInt();
+        String placeName = getUserInputStr();
+        Place place = new Place(placeId, placeName);
+        Event event = new Event(id, name, startDate, organizer, place);
+        addNewEvent.addEvent(event);
+        saveEvent();
     }
 
-    public void removeEvent() {
+    public void saveEvent() {
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(eventsDB);
+        try {
+            Files.writeString(path, jsonString);
+        } catch (IOException e) {
+            System.out.println("Nie można zapisać pliku.");
+        }
+    }
+
+    public void removeEvent(Integer id) {
+        for (Event event : eventsDB) {
+            if (event.getEventJson().getId().equals(id)) {
+                eventsDB.remove(event);
+                break;
+            }
+        }
     }
 
     public void editEvent() {
@@ -384,6 +401,7 @@ public class EventsDB {
         Scanner sc = new Scanner(System.in);
         return sc.nextLine().trim();
     }
+
     public static Integer getUserInputInt() {
         Scanner sc = new Scanner(System.in);
         return sc.nextInt();

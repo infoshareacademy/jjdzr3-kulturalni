@@ -16,9 +16,9 @@ public class Event implements Comparable<Event>{
         sortParameter = "ID";
         this.display = 1;
     }
-    public Event(Integer id, String name, String startDate, Organizer organizer, String place) {
+    public Event(Integer id, String name, String startDate, Organizer organizer, Place place) {
         EventJson eventJsonNew = new EventJson();
-        eventJson.getPlace().setName(place);
+        eventJson.setPlace(place);
         eventJson.setId(id);
         eventJson.setName(name);
         eventJson.setStartDate(startDate);
