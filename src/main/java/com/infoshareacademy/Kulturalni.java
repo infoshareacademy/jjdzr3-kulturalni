@@ -39,10 +39,15 @@ public class Kulturalni {
 //        eventsDB.sortByConfiguration(configuration.getDirection(), configuration.getSortParameter()); // Tu jest tymczasowe wywołanie sortowania wg konfiguracji
 //        eventsDB.setAllFavouritiesToDisplay(favourities); // Tu jest tymczasowo wywołane wyświetlenie wszystkich ulubionych
 //        eventsDB.displayEvents(configuration.getDateFormat());    // Tu jest tymczasowo do wywołania wyświetlenia wszystkich eventów, fla których display=1
-
-        eventsDB.setNoneEventsToDisplay();
-        eventsDB.createEvent();
+//        eventsDB.displayEvents(configuration.getDateFormat());
+//        eventsDB.setNoneEventsToDisplay();
+        eventsDB.addEvent();
+//        eventsDB.displayEvents(configuration.getDateFormat());
+//        eventsDB.readEvent();
+//        eventsDB.displayEvents(configuration.getDateFormat());
+        //eventsDB.removeEvent(51561);
         eventsDB.displayEvents(configuration.getDateFormat());
+
     }
 
     public static void displayHelp() {

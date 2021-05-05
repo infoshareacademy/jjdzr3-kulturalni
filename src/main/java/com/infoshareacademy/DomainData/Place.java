@@ -11,7 +11,7 @@ public class Place {
     ////////////////////////////////HASHCODE & EQUALS/////////////////////////
 
 
-    public Place(Integer id, String name) {
+    public Place(Integer id, String placeName, String name) {
         this.id = id;
         this.name = name;
     }

@@ -18,7 +18,6 @@ import java.util.*;
 public class EventsDB {
     private List<Event> eventsDB = new ArrayList<>();
     private Path path = Paths.get("src", "main", "resources", "data.json");
-    static AddNewEvent addNewEvent = new AddNewEvent();
 
 
     public void readEvent() {
@@ -324,6 +323,7 @@ public class EventsDB {
     }
 
     public void addEvent() {
+        createEvent();
 
     }
 
@@ -335,11 +335,13 @@ public class EventsDB {
         String designation = getUserInputStr();
         Organizer organizer = new Organizer(orgId, designation);
         Integer placeId = getUserInputInt();
+        String pnaceSubName = getUserInputStr();
         String placeName = getUserInputStr();
-        Place place = new Place(placeId, placeName);
+        Place place = new Place(placeId, pnaceSubName, placeName);
         Event event = new Event(id, name, startDate, organizer, place);
-        addNewEvent.addEvent(event);
+        eventsDB.add(event);
         saveEvent();
+
     }
 
     public void saveEvent() {
@@ -358,6 +360,7 @@ public class EventsDB {
                 eventsDB.remove(event);
                 break;
             }
+            saveEvent();
         }
     }
 
@@ -395,6 +398,10 @@ public class EventsDB {
 
             }
         }
+    }
+
+    public boolean isEvent(Integer id) {
+        return eventsDB.contains(id);
     }
 
     public static String getUserInputStr() {

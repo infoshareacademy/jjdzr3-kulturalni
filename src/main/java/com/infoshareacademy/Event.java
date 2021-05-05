@@ -17,14 +17,13 @@ public class Event implements Comparable<Event>{
         this.display = 1;
     }
     public Event(Integer id, String name, String startDate, Organizer organizer, Place place) {
-        EventJson eventJsonNew = new EventJson();
+        EventJson eventJson = new EventJson();
         eventJson.setPlace(place);
         eventJson.setId(id);
         eventJson.setName(name);
         eventJson.setStartDate(startDate);
         eventJson.setOrganizer(organizer);
-        //pozostałe parametry, teraz jest tylko dla place
-        this.eventJson = eventJsonNew;
+        this.eventJson = eventJson;
         sortParameter = "ID";
         this.display = 1;
     }
@@ -69,4 +68,5 @@ public class Event implements Comparable<Event>{
     public void setDisplay(Integer display) {
         this.display = display;
     }
+
 }
