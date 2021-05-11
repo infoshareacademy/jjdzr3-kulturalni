@@ -324,20 +324,31 @@ public class EventsDB {
     }
 
     public void createEvent() {
+        System.out.println("Enter ID: ");
         Integer id = getUserInputInt();
+        System.out.println("Enter name: ");
         String name = getUserInputStr();
+        System.out.println("Enter start date");
         String startDate = getUserInputStr();
+        System.out.println("Enter end date");
+        String endDate = getUserInputStr();
+        System.out.println("Enter organizer");
+        System.out.println("organizer id: ");
         Integer orgId = getUserInputInt();
+        System.out.println("organizer designation: ");
         String designation = getUserInputStr();
         Organizer organizer = new Organizer(orgId, designation);
+        System.out.println("Enter place");
+        System.out.println("place id");
         Integer placeId = getUserInputInt();
+        System.out.println("place subName");
         String placeSubName = getUserInputStr();
+        System.out.println("place Name");
         String placeName = getUserInputStr();
         Place place = new Place(placeId, placeSubName, placeName);
-        Event event = new Event(id, name, startDate, organizer, place);
+        Event event = new Event(id, name, startDate, endDate, organizer, place);
         eventsDB.add(event);
         saveEvent();
-
     }
 
     public void saveEvent() {
