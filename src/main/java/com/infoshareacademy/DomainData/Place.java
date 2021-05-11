@@ -14,6 +14,7 @@ public class Place {
     public Place(Integer id, String placeName, String name) {
         this.id = id;
         this.name = name;
+        this.subname = placeName;
     }
 
     @Override
