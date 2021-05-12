@@ -369,7 +369,7 @@ public class EventsDB {
         eventsDB.add(event);
     }
 
-    public void saveEventsDBToFile() {
+/*    public void saveEventsDBToFile() {
 
         EventJson[] eventJsons = new EventJson[eventsDB.size()];
         for(int i = 0; i < eventJsons.length; i++) {
@@ -387,7 +387,7 @@ public class EventsDB {
             System.out.printf("Baza wydarzeń nie została zapisana do pliku!");
         }
 
-    }
+    }*/
 
 
 }
