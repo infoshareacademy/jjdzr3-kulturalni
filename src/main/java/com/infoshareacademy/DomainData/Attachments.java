@@ -3,7 +3,7 @@ package com.infoshareacademy.DomainData;
 import java.util.Objects;
 
 public class Attachments{
-    Attachments attachments;
+    String attachments;
 
 ////////////////////////////////HASHCODE & EQUALS/////////////////////////
 
@@ -22,11 +22,11 @@ public class Attachments{
 
 ////////////////////////////////SETTERS & GETTERS/////////////////////////
 
-    public Attachments getAttachments() {
+    public String  getAttachments() {
         return attachments;
     }
 
-    public void setAttachments(Attachments attachments) {
+    public void setAttachments(String attachments) {
         this.attachments = attachments;
     }
 }

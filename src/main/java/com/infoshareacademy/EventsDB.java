@@ -1,9 +1,10 @@
 package com.infoshareacademy;
 
 import com.google.gson.Gson;
-import com.infoshareacademy.DomainData.EventJson;
+import com.infoshareacademy.DomainData.*;
 
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -318,4 +319,75 @@ public class EventsDB {
                 }
         }
     }
+
+    public Event createNewEvent (String placename, String name, Integer id, String descLong, String startDate, String time, String descShort ) {
+        EventJson eventJson = new EventJson();
+
+        Place place = new Place();
+        place.setId(0);
+        place.setSubname("brak");
+        place.setName(placename);
+        eventJson.setPlace(place);
+
+        eventJson.setEndDate("brak");
+        eventJson.setName(name);
+
+        URLs urls = new URLs();
+        urls.setWww("brak");
+        eventJson.setUrls(urls);
+
+        Attachments[] attachments = new Attachments[1];
+        Attachments attachment = new Attachments();
+        attachment.setAttachments("Brak");
+        attachments[0] = attachment;
+
+        eventJson.setAttachments(attachments);
+
+        eventJson.setId(id);
+        eventJson.setDescLong(descLong);
+        eventJson.setCategoryId(0);
+        eventJson.setStartDate(startDate + "T" + time);
+
+        Organizer organizer = new Organizer();
+        organizer.setId(0);
+        organizer.setDesignation(name);
+        eventJson.setOrganizer(organizer);
+
+        eventJson.setActive(1);
+        eventJson.setDescShort(descShort);
+
+        Tickets tickets = new Tickets();
+        tickets.setType("1");
+        eventJson.setTickets(tickets);
+
+        Event event = new Event(eventJson);
+
+        return event;
+    }
+
+    public void saveEventToDB (Event event) {
+        eventsDB.add(event);
+    }
+
+    public void saveEventsDBToFile() {
+
+        EventJson[] eventJsons = new EventJson[eventsDB.size()];
+        for(int i = 0; i < eventJsons.length; i++) {
+            eventJsons[i] = eventsDB.get(i).getEventJson();
+        }
+
+        Gson gson = new Gson();
+        String serializedEventsDB = gson.toJson(eventJsons);
+        FileWriter writer = null;
+
+        try {
+            writer = new FileWriter(String.valueOf(path));
+            writer.write(serializedEventsDB);
+        } catch (IOException e) {
+            System.out.printf("Baza wydarzeń nie została zapisana do pliku!");
+        }
+
+    }
+
+
 }

@@ -40,9 +40,20 @@ public class Kulturalni {
 //        eventsDB.setAllFavouritiesToDisplay(favourities); // Tu jest tymczasowo wywołane wyświetlenie wszystkich ulubionych
 //        eventsDB.displayEvents(configuration.getDateFormat());    // Tu jest tymczasowo do wywołania wyświetlenia wszystkich eventów, fla których display=1
 
-        eventsDB.setNoneEventsToDisplay();
-        eventsDB.searchElement("NAME");
+        eventsDB.setAllEventsToDisplay();
+        //eventsDB.searchElement("NAME");
         eventsDB.displayEvents(configuration.getDateFormat());
+        // Tworzę nowy obiekt i podaję mu dane. Reszta jest ustawiona na pałę w metodzie
+        Event newEvent = eventsDB.createNewEvent("Krewetka", "Scena Muzyczna", 0, "Impreza w Krewetce", "2021-06-22", "20:00:00", "Długi opis");
+        // Zapisuje do tablicy eventsDB
+        eventsDB.saveEventToDB(newEvent);
+        // Powtornie wyswietlam i tym razem na koncu jest moje wydarzenie
+        eventsDB.displayEvents(configuration.getDateFormat());
+
+
+
+        // Na koniec programu przy wyjsciu trzeba zapisac eventsDB do pliku
+        // eventsDB.saveEventsDBToFile();
     }
 
     public static void displayHelp() {
@@ -64,10 +75,4 @@ public class Kulturalni {
         System.out.println("kulturalni -filter -date -<start date> -<end date>      -> searches date");
         System.out.println();
     }
-
-
-
-
-
-
 }
