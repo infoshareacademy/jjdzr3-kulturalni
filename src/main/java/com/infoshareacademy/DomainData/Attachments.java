@@ -5,6 +5,9 @@ import java.util.Objects;
 public class Attachments{
     Attachments attachments;
 
+    public Attachments(String attachments) {
+    }
+
 ////////////////////////////////HASHCODE & EQUALS/////////////////////////
 
     @Override

@@ -141,6 +141,8 @@ public class EventJson {
         this.tickets = tickets;
     }
 
+    public void setAttachments(Attachments attachment) {
     }
+}
 
 

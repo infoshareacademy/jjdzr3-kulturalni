@@ -1,15 +1,24 @@
 package com.infoshareacademy;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.google.gson.Gson;
 import com.infoshareacademy.DomainData.*;
+import com.infoshareacademy.repository.Repository;
 
+
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Writer;
 import java.nio.file.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import static com.infoshareacademy.repository.Repository.eventList;
 
 public class EventsDB {
     private List<Event> eventsDB = new ArrayList<>();
@@ -337,7 +346,6 @@ public class EventsDB {
         Integer orgId = getUserInputInt();
         System.out.println("organizer designation: ");
         String designation = getUserInputStr();
-        Organizer organizer = new Organizer(orgId, designation);
         System.out.println("Enter place");
         System.out.println("place id");
         Integer placeId = getUserInputInt();
@@ -345,22 +353,29 @@ public class EventsDB {
         String placeSubName = getUserInputStr();
         System.out.println("place Name");
         String placeName = getUserInputStr();
+        System.out.println("Enter urls");
+        String urls = getUserInputStr();
+        System.out.println("Enter descLong");
+        String descLong = getUserInputStr();
+        System.out.println("Enter attachments");
+        String attachments = getUserInputStr();
+        System.out.println("Enter categoryId");
+        Integer categoryId = getUserInputInt();
+        System.out.println("Enter active");
+        Integer active = getUserInputInt();
+        System.out.println("Enter descShort");
+        String descShort = getUserInputStr();
+        System.out.println("Enter ticket");
+        String type = getUserInputStr();
         Place place = new Place(placeId, placeSubName, placeName);
-        Event event = new Event(id, name, startDate, endDate, organizer, place);
+        Organizer organizer = new Organizer(orgId, designation);
+        URLs urLs = new URLs(urls);
+        Tickets ticket = new Tickets(type);
+        Attachments attachment = new Attachments(attachments);
+        Event event = new Event(id, name, startDate, endDate, organizer, place, urLs, attachment, descLong, categoryId, active, descShort, ticket);
         eventsDB.add(event);
-        saveEvent();
     }
 
-    public void saveEvent() {
-        Gson gson = new Gson();
-        String jsonString = gson.toJson(eventsDB);
-
-//        try {
-//            Files.writeString(path, jsonString, APPEND);
-//        } catch (IOException e) {
-//            System.out.println("Nie można zapisać pliku.");
-//        }
-    }
 
     public boolean removeEvent(Integer id) {
         for (Event event : eventsDB) {
