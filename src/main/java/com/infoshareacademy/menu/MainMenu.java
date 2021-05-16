@@ -49,12 +49,16 @@ public class MainMenu {
                         searchMenu.start(eventsDB,configuration);
                         break;
                     case 5:
+                        EditMenu editMenu = new EditMenu();
+                        editMenu.start(eventsDB);
+                        break;
+                    case 6:
                         System.out.println("Wyjście. Do zobaczenia.");
                         break;
                     default:
                         System.out.println("Wybierz poprawną opcję!");
                 }
-            } while (key != 5);
+            } while (key != 6);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Wpisz poprawny symbol!");

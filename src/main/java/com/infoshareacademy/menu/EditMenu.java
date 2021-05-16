@@ -29,15 +29,15 @@ public class EditMenu extends MainMenu {
             switch (key) {
                 case 1:
                     System.out.println("Dodaj nowe wydarzenie:");
-                    eventsDB.
-                            eventsDB.displayEvents("1");
+//                    eventsDB.
+//                            eventsDB.displayEvents("1");
                     break;
                 case 2:
                     System.out.println("Skasuj wydarzenie o numerze ID:");
                     System.out.println("Wpisz ID wydarzenia");
                     Scanner scannerID = new Scanner(System.in);
                     int inputID = menuUtil.checkInput(scannerID);
-                    eventsDB
+//                    eventsDB
                     break;
                 case 3:
                     System.out.println("Edytuj wydarzenie o numerze ID:");
