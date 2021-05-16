@@ -2,7 +2,6 @@ package com.infoshareacademy;
 
 import com.google.gson.Gson;
 import com.infoshareacademy.DomainData.EventJson;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,10 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class EventsDB {
@@ -38,38 +34,7 @@ public class EventsDB {
         }
     }
 
-    public void displaySingleEvent(Integer ID) {
-        try {
-            if (isEvent(ID)) {
-                for ( Event event : eventsDB){
-                    System.out.println();
-                    System.out.println("ID wydarzenia " + ID);
-                    System.out.println("Nazwa wydarzenia: " + event.getEventJson().getName());
-                    System.out.println("Organizator: " + event.getEventJson().getOrganizer().getDesignation());
-
-                    if (event.getEventJson().getActive() == 1) {
-                        System.out.println("Wydarzenie jest aktualne.");
-                    } else
-                        System.out.println("Wydarzenie jest nieaktualne.");
-
-                    System.out.println("Data rozpoczęcia: " + event.getEventJson().getStartDate());
-                    System.out.println("Data zakończenia: " + event.getEventJson().getEndDate());
-                    System.out.println("Opis: " + event.getEventJson().getDescShort());
-                    break;
-                }
-            } else System.out.println("Nie ma wydarzenia o takim numerze");
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Nie ma wydarzenia o takim numerze");
-        }
-    }
-
-    public boolean isEvent(Integer ID) {
-        for (int i = 0; i < eventsDB.size(); i++) {
-            if (ID.equals(eventsDB.get(i).getEventJson().getId())) {
-                return true;
-            }
-        }
-        return false;
+    public void displaySingleEvent(Integer id) {
     }
 
     public void displayEvents(String type) {
@@ -133,8 +98,6 @@ public class EventsDB {
                 System.out.println(tabelaWydarzenia);
             }
         }
-        System.out.println(szerokoscTabeli);
-        System.out.println("Ilość wydarzeń: " + eventsDB.size());
     }
 
     public void setAllEventsToDisplay() {
@@ -312,5 +275,47 @@ public class EventsDB {
         }
     }
 
+    public void searchElement(String key) {
+        //TODO compareToIgnoreCase // Pattern threeChars = Pattern.compile("([a-zA-Z0-9]){3,}"); ???
+        int charCount = 3;
+        String searchElement;
+        System.out.print("Wprowadź co najmniej 3 znaki: ");
+        do {
+            Scanner scanner = new Scanner(System.in);
+            searchElement = scanner.nextLine();
+            charCount = searchElement.length();
 
+            if (charCount < 3) {
+                System.out.print("Wprowadź co najmniej 3 znaki: ");
+            }
+
+        } while (charCount < 3);
+
+        switch (key) {
+            case "ID":
+                for (int i = 0; i < eventsDB.size(); i++) {
+                    if (eventsDB.get(i).getEventJson().getId().toString().startsWith(searchElement)) {
+                        eventsDB.get(i).setDisplay(1);
+                    }
+                }
+            case "NAME":
+                for (int i = 0; i < eventsDB.size(); i++) {
+                    if (eventsDB.get(i).getEventJson().getName().toUpperCase().startsWith(searchElement.toUpperCase())) {
+                        eventsDB.get(i).setDisplay(1);
+                    }
+                }
+            case "PLACE":
+                for (int i = 0; i < eventsDB.size(); i++) {
+                    if (eventsDB.get(i).getEventJson().getPlace().getName().toUpperCase().startsWith(searchElement.toUpperCase())) {
+                        eventsDB.get(i).setDisplay(1);
+                    }
+                }
+            case "ORGANIZER":
+                for (int i = 0; i < eventsDB.size(); i++) {
+                    if (eventsDB.get(i).getEventJson().getOrganizer().getDesignation().toUpperCase().startsWith(searchElement.toUpperCase())) {
+                        eventsDB.get(i).setDisplay(1);
+                    }
+                }
+        }
+    }
 }

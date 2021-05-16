@@ -16,7 +16,8 @@ public class MainMenu {
         System.out.println("|        1. Pokaż wydarzenia                               |");
         System.out.println("|        2. Sortuj wydarzenia                              |");
         System.out.println("|        3. Ulubione wydarzenia                            |");
-        System.out.println("|        4. Wyjście                                        |");
+        System.out.println("|        4. Wyszukiwanie wydarzeń                          |");
+        System.out.println("|        5. Wyjście                                        |");
         System.out.println("============================================================");
         System.out.println("Wybierz odpowiednią opcję:");
     }
@@ -36,20 +37,24 @@ public class MainMenu {
                         break;
                     case 2:
                         SortMenu sortMenu = new SortMenu();
-                        sortMenu.start(eventsDB,configuration);
+                        sortMenu.start(eventsDB, configuration);
                         System.out.println("Menu sortowania");
                         break;
                     case 3:
                         FavouriteMenu favouriteMenu = new FavouriteMenu();
-                        favouriteMenu.start(favourities,eventsDB);
+                        favouriteMenu.start(favourities, eventsDB);
                         break;
                     case 4:
+                        SearchMenu searchMenu = new SearchMenu();
+                        searchMenu.start(eventsDB,configuration);
+                        break;
+                    case 5:
                         System.out.println("Wyjście. Do zobaczenia.");
                         break;
                     default:
                         System.out.println("Wybierz poprawną opcję!");
                 }
-            } while (key != 4);
+            } while (key != 5);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Wpisz poprawny symbol!");
