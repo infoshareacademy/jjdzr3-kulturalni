@@ -1,16 +1,21 @@
 package com.infoshareacademy;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.google.gson.Gson;
-import com.infoshareacademy.DomainData.EventJson;
+import com.infoshareacademy.DomainData.*;
 
+
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.Writer;
+import java.nio.file.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-
 
 public class EventsDB {
     private List<Event> eventsDB = new ArrayList<>();
@@ -34,8 +39,40 @@ public class EventsDB {
         }
     }
 
-    public void displaySingleEvent(Integer id) {
+    public void displaySingleEvent(Integer ID) {
+        try {
+            if (isEvent(ID)) {
+                for (Event event : eventsDB) {
+                    System.out.println();
+                    System.out.println("ID wydarzenia " + ID);
+                    System.out.println("Nazwa wydarzenia: " + event.getEventJson().getName());
+                    System.out.println("Organizator: " + event.getEventJson().getOrganizer().getDesignation());
+
+                    if (event.getEventJson().getActive() == 1) {
+                        System.out.println("Wydarzenie jest aktualne.");
+                    } else
+                        System.out.println("Wydarzenie jest nieaktualne.");
+
+                    System.out.println("Data rozpoczęcia: " + event.getEventJson().getStartDate());
+                    System.out.println("Data zakończenia: " + event.getEventJson().getEndDate());
+                    System.out.println("Opis: " + event.getEventJson().getDescShort());
+                    break;
+                }
+            } else System.out.println("Nie ma wydarzenia o takim numerze");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Nie ma wydarzenia o takim numerze");
+        }
     }
+
+    public boolean isEvent(Integer ID) {
+        for (int i = 0; i < eventsDB.size(); i++) {
+            if (ID.equals(eventsDB.get(i).getEventJson().getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public void displayEvents(String type) {
         StringBuilder naglowek = new StringBuilder();
@@ -275,7 +312,7 @@ public class EventsDB {
         }
     }
 
-    public void searchElement(String key) {
+    public String searchElement(String key) {
         //TODO compareToIgnoreCase // Pattern threeChars = Pattern.compile("([a-zA-Z0-9]){3,}"); ???
         int charCount = 3;
         String searchElement;
@@ -288,7 +325,6 @@ public class EventsDB {
             if (charCount < 3) {
                 System.out.print("Wprowadź co najmniej 3 znaki: ");
             }
-
         } while (charCount < 3);
 
         switch (key) {
@@ -317,5 +353,171 @@ public class EventsDB {
                     }
                 }
         }
+        return searchElement;
+    }
+
+    public void addEvent() {
+        createEvent();
+
+    }
+
+    public void createEvent() {
+        System.out.println("Enter ID: ");
+        Integer id = getUserInputInt();
+        System.out.println("Enter name: ");
+        String name = getUserInputStr();
+        System.out.println("Enter start date");
+        String startDate = getUserInputStr();
+        System.out.println("Enter end date");
+        String endDate = getUserInputStr();
+        System.out.println("Enter organizer");
+        System.out.println("organizer id: ");
+        Integer orgId = getUserInputInt();
+        System.out.println("organizer designation: ");
+        String designation = getUserInputStr();
+        System.out.println("Enter place");
+        System.out.println("place id");
+        Integer placeId = getUserInputInt();
+        System.out.println("place subName");
+        String placeSubName = getUserInputStr();
+        System.out.println("place Name");
+        String placeName = getUserInputStr();
+        System.out.println("Enter urls");
+        String urls = getUserInputStr();
+        System.out.println("Enter descLong");
+        String descLong = getUserInputStr();
+        System.out.println("Enter attachments");
+        String attachments = getUserInputStr();
+        System.out.println("Enter categoryId");
+        Integer categoryId = getUserInputInt();
+        System.out.println("Enter active");
+        Integer active = getUserInputInt();
+        System.out.println("Enter descShort");
+        String descShort = getUserInputStr();
+        System.out.println("Enter ticket");
+        String type = getUserInputStr();
+        Place place = new Place(placeId, placeSubName, placeName);
+        Organizer organizer = new Organizer(orgId, designation);
+        URLs urLs = new URLs(urls);
+        Tickets ticket = new Tickets(type);
+        Attachments attachment = new Attachments(attachments);
+        Event event = new Event(id, name, startDate, endDate, organizer, place, urLs, attachment, descLong, categoryId, active, descShort, ticket);
+        eventsDB.add(event);
+    }
+
+
+    public boolean removeEvent(Integer id) {
+        for (Event event : eventsDB) {
+            if (id.equals(event.getEventJson().getId())) {
+                eventsDB.remove(event);
+                System.out.println("Event has been deleted");
+                return true;
+            }
+        }
+        System.out.println("Failed! Please try again");
+        return false;
+    }
+
+    public boolean editEvent(Integer eventId) {
+        for (Event event : eventsDB) {
+            if ((event.getEventJson().getId().equals(eventId))) {
+                System.out.println("Please enter new name. To go next hit Enter ");
+                Scanner scanName = new Scanner(System.in);
+                String name = scanName.nextLine();
+                if (!name.isEmpty()) {
+                    event.getEventJson().setName(name);
+                }
+                System.out.println("Please enter new place name. To go next hit Enter ");
+                Scanner scanPlace = new Scanner(System.in);
+                String placeName = scanPlace.nextLine();
+                if (!placeName.isEmpty()) {
+                    Place place = event.getEventJson().getPlace();
+                    place.setName(placeName);
+                }
+                System.out.println("Please enter new  place subname. To go next hit Enter ");
+                Scanner scanSubname = new Scanner(System.in);
+                String subname = scanSubname.nextLine();
+                if (!subname.isEmpty()) {
+                    Place place = event.getEventJson().getPlace();
+                    place.setSubname(subname);
+                }
+                System.out.println("Please enter new start date. To go next hit Enter ");
+                Scanner scanStartDate = new Scanner(System.in);
+                String startDate = scanStartDate.nextLine();
+                if (!startDate.isEmpty()) {
+                    event.getEventJson().setStartDate(startDate);
+                }
+                System.out.println("Please enter new end date. To go next hit Enter ");
+                Scanner scanEndDate = new Scanner(System.in);
+                String endDate = scanEndDate.nextLine();
+                if (!endDate.isEmpty()) {
+                    event.getEventJson().setEndDate(endDate);
+                }
+                System.out.println("Please enter new organizer designation. To go next hit Enter ");
+                Scanner scanOrganizer = new Scanner(System.in);
+                String organizer = scanOrganizer.nextLine();
+                if (!organizer.isEmpty()) {
+                    Organizer org = event.getEventJson().getOrganizer();
+                    org.setDesignation(organizer);
+                }
+                System.out.println("Please enter new event URL. To go next hit Enter ");
+                Scanner scanUrlWww = new Scanner(System.in);
+                String urlW = scanUrlWww.nextLine();
+                if (!urlW.isEmpty()) {
+                    URLs eventURL = event.getEventJson().getUrls();
+                    eventURL.setWww(urlW);
+                }
+                System.out.println("Please enter new event URL for tickets. To go next hit Enter ");
+                Scanner scanUrlTicket = new Scanner(System.in);
+                String urlT = scanUrlTicket.nextLine();
+                if (!urlT.isEmpty()) {
+                    Tickets eventURL = event.getEventJson().getTickets();
+                    eventURL.setType(urlT);
+                }
+                System.out.println("Please enter new category ID. To go next hit Enter ");
+                Scanner scanCat = new Scanner(System.in);
+                Integer cat = scanCat.nextInt();
+                if (!cat.equals(null)) {
+                    event.getEventJson().setCategoryId(cat);
+                }
+                System.out.println("Please enter 'yes' if event is active. To go next hit Enter ");
+                Scanner scanActive = new Scanner(System.in);
+                String active = scanActive.nextLine();
+                if (active.equals("yes")) {
+                    event.getEventJson().setActive(1);
+                } else {
+                    event.getEventJson().setActive(0);
+                }
+                System.out.println("Please enter new ticket type. To go next hit Enter ");
+                Scanner scanTicketType = new Scanner(System.in);
+                String ticketType = scanTicketType.nextLine();
+                if (!ticketType.isEmpty()) {
+                    Tickets ticket = event.getEventJson().getTickets();
+                    ticket.setType(ticketType);
+                }
+                System.out.println("Please enter new attachment. To go next hit Enter ");
+                Scanner scanAttachment = new Scanner(System.in);
+                String attach = scanAttachment.nextLine();
+                if (!attach.isEmpty()) {
+                    for (Attachments attachment : event.getEventJson().getAttachments()) {
+                        attachment.setAttachments(attachment);
+                    }
+                }
+                System.out.println("Event has been updated \n" + event.toString());
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    public static String getUserInputStr() {
+        Scanner sc = new Scanner(System.in);
+        return sc.nextLine().trim();
+    }
+
+    public static Integer getUserInputInt() {
+        Scanner sc = new Scanner(System.in);
+        return sc.nextInt();
     }
 }
