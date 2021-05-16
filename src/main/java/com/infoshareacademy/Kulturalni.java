@@ -53,7 +53,7 @@ public class Kulturalni {
 
 
         // Na koniec programu przy wyjsciu trzeba zapisac eventsDB do pliku - Na razie nie działa!!!!!!!!!!!!!
-        // eventsDB.saveEventsDBToFile();
+        eventsDB.saveEventsDBToFile();
     }
 
     public static void displayHelp() {

@@ -3,6 +3,7 @@ package com.infoshareacademy;
 import com.google.gson.Gson;
 import com.infoshareacademy.DomainData.*;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.util.*;
 public class EventsDB {
     private List<Event> eventsDB = new ArrayList<>();
     private Path path = Paths.get("src", "main", "resources", "data.json");
+    private Path path1 = Paths.get("src", "main", "resources", "data_new.json");
 
 
     public void readEvent() {
@@ -369,7 +371,7 @@ public class EventsDB {
         eventsDB.add(event);
     }
 
-/*    public void saveEventsDBToFile() {
+    public void saveEventsDBToFile() {
 
         EventJson[] eventJsons = new EventJson[eventsDB.size()];
         for(int i = 0; i < eventJsons.length; i++) {
@@ -379,15 +381,19 @@ public class EventsDB {
         Gson gson = new Gson();
         String serializedEventsDB = gson.toJson(eventJsons);
         FileWriter writer = null;
+        //File file = new File(String.valueOf(path));
+
+        System.out.printf(serializedEventsDB);
+       // file.delete();
 
         try {
-            writer = new FileWriter(String.valueOf(path));
+            writer = new FileWriter(String.valueOf(path1));
             writer.write(serializedEventsDB);
         } catch (IOException e) {
             System.out.printf("Baza wydarzeń nie została zapisana do pliku!");
         }
 
-    }*/
+    }
 
 
 }
