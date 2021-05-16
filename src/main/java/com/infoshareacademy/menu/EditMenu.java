@@ -36,13 +36,14 @@ public class EditMenu extends MainMenu {
                     System.out.println("Wpisz ID wydarzenia");
                     Scanner scannerID = new Scanner(System.in);
                     int inputID = menuUtil.checkInput(scannerID);
-//                    eventsDB
+                    eventsDB.removeEvent(inputID);
                     break;
                 case 3:
                     System.out.println("Edytuj wydarzenie o numerze ID:");
                     System.out.println("Wpisz ID wydarzenia");
                     Scanner scannerID1 = new Scanner(System.in);
                     inputID = menuUtil.checkInput(scannerID1);
+                    eventsDB.editEvent(inputID);
                     break;
                 case 4:
                     System.out.println("Powrót do menu głównego");
