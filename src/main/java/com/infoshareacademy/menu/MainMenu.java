@@ -17,7 +17,8 @@ public class MainMenu {
         System.out.println("|        2. Sortuj wydarzenia                              |");
         System.out.println("|        3. Ulubione wydarzenia                            |");
         System.out.println("|        4. Wyszukiwanie wydarzeń                          |");
-        System.out.println("|        5. Wyjście                                        |");
+        System.out.println("|        5. Edycja wydarzeń                                |");
+        System.out.println("|        6. Wyjście                                        |");
         System.out.println("============================================================");
         System.out.println("Wybierz odpowiednią opcję:");
     }

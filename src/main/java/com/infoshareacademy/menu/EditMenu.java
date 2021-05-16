@@ -29,8 +29,7 @@ public class EditMenu extends MainMenu {
             switch (key) {
                 case 1:
                     System.out.println("Dodaj nowe wydarzenie:");
-//                    eventsDB.
-//                            eventsDB.displayEvents("1");
+                    eventsDB.createEvent();
                     break;
                 case 2:
                     System.out.println("Skasuj wydarzenie o numerze ID:");
@@ -53,6 +52,6 @@ public class EditMenu extends MainMenu {
                     System.out.println("Wybierz poprawną opcję!");
             }
 
-        } while (key != 3);
+        } while (key != 4);
     }
 }

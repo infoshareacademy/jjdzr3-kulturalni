@@ -11,6 +11,12 @@ public class Place {
     ////////////////////////////////HASHCODE & EQUALS/////////////////////////
 
 
+    public Place(Integer id, String placeName, String name) {
+        this.id = id;
+        this.name = name;
+        this.subname = placeName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

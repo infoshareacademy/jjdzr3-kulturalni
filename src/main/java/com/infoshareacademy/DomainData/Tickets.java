@@ -6,6 +6,10 @@ public class Tickets {
 
     private String type;
 
+    public Tickets(String type) {
+        this.type = type;
+    }
+
     ////////////////////////////////HASHCODE & EQUALS/////////////////////////
 
     @Override
