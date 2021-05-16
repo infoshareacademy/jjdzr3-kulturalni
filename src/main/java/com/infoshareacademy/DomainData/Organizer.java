@@ -9,6 +9,11 @@ public class Organizer {
 
     ////////////////////////////////HASHCODE & EQUALS/////////////////////////
 
+    public Organizer(Integer id, String designation) {
+        this.id = id;
+        this.designation = designation;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

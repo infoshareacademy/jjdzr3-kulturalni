@@ -5,6 +5,9 @@ import java.util.Objects;
 public class URLs {
     private String www;
 
+    public URLs(String urls) {
+    }
+
     ////////////////////////////////HASHCODE & EQUALS/////////////////////////
 
     @Override
