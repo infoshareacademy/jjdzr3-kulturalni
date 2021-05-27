@@ -143,6 +143,21 @@ public class EventJson {
 
     public void setAttachments(Attachments attachment) {
     }
+
+    @Override
+    public String toString() {
+        return "EventJson{" +
+                "place=" + place +
+                ", endDate='" + endDate + '\'' +
+                ", name='" + name + '\'' +
+                ", urls=" + urls +
+                ", startDate='" + startDate + '\'' +
+                ", organizer=" + organizer +
+                ", active=" + active +
+                ", descShort='" + descShort + '\'' +
+                ", tickets=" + tickets +
+                '}';
+    }
 }
 
 

@@ -5,7 +5,6 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.google.gson.Gson;
 import com.infoshareacademy.DomainData.*;
-import com.infoshareacademy.repository.Repository;
 
 
 import java.io.File;
@@ -17,8 +16,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-
-import static com.infoshareacademy.repository.Repository.eventList;
 
 public class EventsDB {
     private List<Event> eventsDB = new ArrayList<>();
@@ -42,8 +39,40 @@ public class EventsDB {
         }
     }
 
-    public void displaySingleEvent(Integer id) {
+    public void displaySingleEvent(Integer ID) {
+        try {
+            if (isEvent(ID)) {
+                for (Event event : eventsDB) {
+                    System.out.println();
+                    System.out.println("ID wydarzenia " + ID);
+                    System.out.println("Nazwa wydarzenia: " + event.getEventJson().getName());
+                    System.out.println("Organizator: " + event.getEventJson().getOrganizer().getDesignation());
+
+                    if (event.getEventJson().getActive() == 1) {
+                        System.out.println("Wydarzenie jest aktualne.");
+                    } else
+                        System.out.println("Wydarzenie jest nieaktualne.");
+
+                    System.out.println("Data rozpoczęcia: " + event.getEventJson().getStartDate());
+                    System.out.println("Data zakończenia: " + event.getEventJson().getEndDate());
+                    System.out.println("Opis: " + event.getEventJson().getDescShort());
+                    break;
+                }
+            } else System.out.println("Nie ma wydarzenia o takim numerze");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Nie ma wydarzenia o takim numerze");
+        }
     }
+
+    public boolean isEvent(Integer ID) {
+        for (int i = 0; i < eventsDB.size(); i++) {
+            if (ID.equals(eventsDB.get(i).getEventJson().getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public void displayEvents(String type) {
         StringBuilder naglowek = new StringBuilder();
@@ -204,7 +233,7 @@ public class EventsDB {
     }
 
 
-/*    public void sortByID(String direction, String key) {
+    public void sortByID(String direction, String key) {
         sortByConfiguration(direction, key);
         setSortParameterID();
         Collections.sort(eventsDB);
@@ -220,7 +249,7 @@ public class EventsDB {
         sortByConfiguration(direction, key);
         setSortParameterDate();
         Collections.sort(eventsDB);
-    }*/
+    }
 
 
     public void sortByConfiguration(String direction, String key) {
